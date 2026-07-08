@@ -1,0 +1,261 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { getProjects, projectSlug } from "@/lib/projects";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+
+const desc =
+  lang === "fr"
+    ? "Projets artistiques de Tara Rose Morris : installation immersive, animation, projection mapping et médias participatifs à Montréal et Toronto."
+    : "Art projects by Tara Rose Morris: immersive installation, animation, projection mapping, and participatory media in Montreal and Toronto.";
+---
+
+<BaseLayout title={t("work.title")} description={desc} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("work.title")}</p>
+      <h1>{t("work.title")}</h1>
+      <p class="lead">{t("work.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body" data-view="grid" id="art-views">
+    <div class="view-switch" role="tablist" aria-label="View">
+      <button class="view-btn" data-view-btn="grid" aria-pressed="true">{t("work.viewGrid")}</button>
+      <button class="view-btn" data-view-btn="list" aria-pressed="false">{t("work.viewList")}</button>
+    </div>
+
+    {
+      projects.length === 0 ? (
+        <p class="muted">No projects yet.</p>
+      ) : (
+        <>
+          <div class="view view--grid tiles tiles--grid">
+            {projects.map((entry) => {
+              const d = entry.data;
+              const href = localizePath(lang, `/art/${projectSlug(entry)}`);
+              return (
+                <a class="tile" href={href}>
+                  <span class="t-media">
+                    {d.cover ? (
+                      <img src={d.cover} alt={d.coverAlt ?? d.title} loading="lazy" />
+                    ) : (
+                      <span class="t-ph">{d.title}</span>
+                    )}
+                  </span>
+                  <span class="t-cap">
+                    <span class="t-t">{d.title}</span>
+                    {d.year && <span class="t-y">{d.year}</span>}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+
+          <div class="view view--list tiles tiles--list">
+            {projects.map((entry) => {
+              const d = entry.data;
+              const href = localizePath(lang, `/art/${projectSlug(entry)}`);
+              return (
+                <a class="tile" href={href}>
+                  <span class="t-media">
+                    {d.cover ? (
+                      <img src={d.cover} alt={d.coverAlt ?? d.title} loading="lazy" />
+                    ) : (
+                      <span class="t-ph">{d.title}</span>
+                    )}
+                  </span>
+                  <span class="t-body">
+                    <span class="t-cap">
+                      <span class="t-t">{d.title}</span>
+                      {d.year && <span class="t-y">{d.year}</span>}
+                    </span>
+                    {d.summary && <span class="t-sum">{d.summary}</span>}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script>
+  const root = document.getElementById("art-views");
+  if (root) {
+    const btns = root.querySelectorAll<HTMLButtonElement>("[data-view-btn]");
+    const valid = ["grid", "list"];
+    const setView = (view: string) => {
+      if (!valid.includes(view)) view = "grid";
+      root.setAttribute("data-view", view);
+      btns.forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.viewBtn === view)),
+      );
+      try {
+        sessionStorage.setItem("artView", view);
+      } catch {}
+    };
+    btns.forEach((b) =>
+      b.addEventListener("click", () => setView(b.dataset.viewBtn || "grid")),
+    );
+    let saved = "grid";
+    try {
+      saved = sessionStorage.getItem("artView") || "grid";
+    } catch {}
+    setView(saved);
+  }
+</script>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+
+  /* View switch — monochrome segmented control */
+  .view-switch {
+    display: inline-flex;
+    border: var(--border);
+    margin-bottom: 1.75rem;
+    background: #fff;
+  }
+  .view-btn {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.55rem 0.95rem;
+    background: none;
+    border: none;
+    border-right: var(--border);
+    cursor: pointer;
+    color: #000;
+  }
+  .view-btn:last-child {
+    border-right: none;
+  }
+  .view-btn[aria-pressed="true"] {
+    background: #000;
+    color: #fff;
+  }
+
+  /* View toggling */
+  .view {
+    display: none;
+  }
+  #art-views[data-view="grid"] .view--grid,
+  #art-views[data-view="list"] .view--list {
+    display: grid;
+  }
+
+  /* Shared card scaffold — hairline boxes from a 1px gap over black */
+  .tiles {
+    gap: 1px;
+    background: #000;
+    border: var(--border);
+  }
+  .tiles--grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  .tiles--list {
+    grid-template-columns: 1fr;
+  }
+  .tile {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #000;
+  }
+  .t-media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+  .tiles--grid .t-media {
+    aspect-ratio: 1 / 1;
+  }
+  .t-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .t-ph {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    text-align: center;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #000;
+  }
+
+  /* Caption sits on white, with padding — never over the image */
+  .t-cap {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .tiles--grid .t-cap {
+    padding: 0.65rem 0.75rem;
+    border-top: var(--border);
+  }
+  .t-t {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    line-height: 1.15;
+  }
+  .t-y {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+  .tile:hover .t-t,
+  .tile:focus-visible .t-t {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* List rows — image beside text, all on white */
+  .tiles--list .tile {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .tiles--list .t-media {
+    flex: none;
+    width: clamp(120px, 30%, 240px);
+    aspect-ratio: 4 / 3;
+    border-right: var(--border);
+  }
+  .tiles--list .t-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.9rem 1.05rem;
+    min-width: 0;
+  }
+  .t-sum {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  @media (max-width: 540px) {
+    .tiles--list .t-media {
+      width: 38%;
+    }
+  }
+</style>

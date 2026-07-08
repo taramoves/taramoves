@@ -1,0 +1,382 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { services } from "@/data/services";
+import { profile } from "@/data/about";
+import { commissions } from "@/data/commissions";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const list = services[lang];
+const clientWork = commissions[lang];
+
+const calUser = profile.calUsername;
+const introNs = profile.calEvents.intro;
+const consultNs = profile.calEvents.consultation;
+const calConfig = '{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}';
+
+// Inline SVG icons (stroke = currentColor), keyed by the service's `icon` field.
+const icons: Record<string, string> = {
+  projection:
+    '<path d="M4 5h16M6 5v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5M12 15v4M9 19h6"/>',
+  realtime:
+    '<circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7.6 7.4 11 16M16.4 7.4 13 16M8 6h8"/>',
+  motion:
+    '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M8 4v16M16 4v16"/>',
+  web: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 9h18M6.5 7h.01M9 7h.01"/>',
+  ai: '<path d="M12 3l1.7 4.8L18.5 9.5 13.7 11.2 12 16l-1.7-4.8L5.5 9.5l4.8-1.7z"/><path d="M18 15l.6 1.6 1.6.6-1.6.6L18 20l-.6-1.6L15.8 17.8l1.6-.6z"/>',
+  workshops:
+    '<path d="M20 11.5a7.5 7.5 0 0 1-10.9 6.7L4 19.5l1.3-5A7.5 7.5 0 1 1 20 11.5z"/>',
+};
+
+const desc =
+  lang === "fr"
+    ? "Collaborez avec Tara Rose Morris : projection mapping, TouchDesigner, motion design, animation et sites web créatifs. Réservez un appel d'introduction gratuit."
+    : "Work with Tara Rose Morris on creative technology: projection mapping, TouchDesigner, motion graphics, animation, and creative websites. Book a free intro call.";
+---
+
+<BaseLayout title={t("wwm.title")} description={desc} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("wwm.title")}</p>
+      <h1>{t("wwm.title")}</h1>
+      <p class="lead">{t("wwm.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    <h2 class="services-heading">{t("wwm.servicesTitle")}</h2>
+    <ul class="services">
+      {
+        list.map((s) => (
+          <li class="service">
+            <span class="service-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <Fragment set:html={icons[s.icon]} />
+              </svg>
+            </span>
+            <h3>{s.title}</h3>
+            <p class="muted">{s.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <h2 id="book" class="book-heading">{t("wwm.bookTitle")}</h2>
+    <div class="book-options">
+      <div class="book-card">
+        <h3>{t("wwm.bookIntro")}</h3>
+        <p class="muted">{t("wwm.bookIntroDesc")}</p>
+        <button
+          type="button"
+          class="btn"
+          data-cal-namespace={introNs}
+          data-cal-link={`${calUser}/${introNs}`}
+          data-cal-config={calConfig}
+        >
+          {t("wwm.bookCta")}
+        </button>
+      </div>
+      <div class="book-card">
+        <h3>{t("wwm.bookConsultation")}</h3>
+        <p class="muted">{t("wwm.bookConsultationDesc")}</p>
+        <button
+          type="button"
+          class="btn"
+          data-cal-namespace={consultNs}
+          data-cal-link={`${calUser}/${consultNs}`}
+          data-cal-config={calConfig}
+        >
+          {t("wwm.bookCta")}
+        </button>
+      </div>
+    </div>
+    <p class="muted book-fallback">
+      {t("wwm.bookFallback")}{" "}
+      <a href={`mailto:${profile.email}`}>{t("wwm.bookFallbackLink")}</a>.
+    </p>
+
+    {
+      clientWork.length > 0 && (
+        <section class="client-work">
+          <h2 class="cw-heading">{t("wwm.commissionsTitle")}</h2>
+          <p class="muted cw-intro">{t("wwm.commissionsIntro")}</p>
+          <ul class="cw-grid">
+            {clientWork.map((c) => (
+              <li class="cw-card">
+                {c.image && (
+                  <div class="cw-media">
+                    <img src={c.image} alt={c.imageAlt ?? c.title} loading="lazy" />
+                  </div>
+                )}
+                <div class="cw-body">
+                  <div class="cw-meta">
+                    {c.category && <span class="cw-tag">{c.category}</span>}
+                    {c.year && <span class="cw-year">{c.year}</span>}
+                  </div>
+                  <h3>{c.title}</h3>
+                  {c.client && <p class="cw-client muted">{c.client}</p>}
+                  <p class="cw-desc">{c.description}</p>
+                  {c.tech && (
+                    <p class="cw-tech muted">
+                      <span class="cw-tech-label">{lang === "fr" ? "Technologie" : "Technology"}:</span> {c.tech}
+                    </p>
+                  )}
+                  {c.link && (
+                    <a class="cw-link" href={c.link} target="_blank" rel="noopener">
+                      {c.linkLabel || c.link}
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script define:vars={{ introNs, consultNs }}>
+  (function (C, A, L) {
+    let p = function (a, ar) {
+      a.q.push(ar);
+    };
+    let d = C.document;
+    C.Cal =
+      C.Cal ||
+      function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () {
+            p(api, arguments);
+          };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", introNs, { origin: "https://app.cal.com" });
+  Cal("init", consultNs, { origin: "https://app.cal.com" });
+  Cal.config = Cal.config || {};
+  Cal.config.forwardQueryParams = true;
+  Cal.ns[introNs]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+  Cal.ns[consultNs]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+</script>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .services-heading {
+    margin-top: 0;
+  }
+  .services {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 880px) {
+    .services {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 520px) {
+    .services {
+      grid-template-columns: 1fr;
+    }
+  }
+  .service {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    border: var(--border);
+    background: var(--bg-elevated);
+    transition: background 0.12s ease;
+  }
+  .service-icon {
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .service-icon svg {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+  .service h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.1rem;
+  }
+  .service p {
+    margin: 0;
+    font-size: 0.92rem;
+  }
+  .book-heading {
+    margin-top: 3.5rem;
+  }
+  .book-options {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 1.25rem 0 1rem;
+  }
+  @media (max-width: 560px) {
+    .book-options {
+      grid-template-columns: 1fr;
+    }
+  }
+  .book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border: var(--border);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+  }
+  .book-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  .book-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    flex: 1;
+  }
+  .book-card .btn {
+    margin-top: 0.5rem;
+  }
+  .book-fallback {
+    font-size: 0.92rem;
+  }
+
+  .client-work {
+    margin-top: 3.5rem;
+  }
+  .cw-heading {
+    margin: 0;
+  }
+  .cw-intro {
+    margin: 0.5rem 0 0;
+    max-width: 60ch;
+    font-size: 0.92rem;
+  }
+  .cw-grid {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 640px) {
+    .cw-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .cw-card {
+    display: flex;
+    flex-direction: column;
+    border: var(--border);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .cw-media {
+    aspect-ratio: 16 / 10;
+    border-bottom: var(--border);
+    background: var(--surface-light);
+  }
+  .cw-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cw-body {
+    padding: 1.1rem;
+  }
+  .cw-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .cw-tag {
+    font-family: var(--font-label);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: var(--border);
+    padding: 0.1rem 0.4rem;
+    background: #ffffff;
+  }
+  .cw-year {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+  .cw-card h3 {
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+  }
+  .cw-client {
+    margin: 0 0 0.5rem;
+    font-size: 0.82rem;
+  }
+  .cw-desc {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .cw-tech {
+    margin: 0.75rem 0 0;
+    font-size: 0.8rem;
+  }
+  .cw-tech-label {
+    font-family: var(--font-label);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+  }
+  .cw-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 2px solid var(--ink);
+  }
+</style>

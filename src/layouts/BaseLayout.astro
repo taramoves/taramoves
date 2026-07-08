@@ -1,0 +1,76 @@
+---
+import "@/styles/global.css";
+import Nav from "@/components/Nav.astro";
+import Footer from "@/components/Footer.astro";
+import SEO from "@/components/SEO.astro";
+import type { Lang } from "@/i18n/ui";
+import { useTranslations } from "@/i18n/utils";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  image?: string;
+  type?: "website" | "article" | "profile";
+  person?: boolean;
+  /** When true, hides the standard nav + footer (used by the full-bleed home page). */
+  bare?: boolean;
+}
+
+const { title, description, lang, image, type, person, bare = false } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <SEO
+      title={title}
+      description={description}
+      lang={lang}
+      image={image}
+      type={type}
+      person={person}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {!bare && <Nav lang={lang} />}
+    <main id="main">
+      <slot />
+    </main>
+    {!bare && <Footer lang={lang} />}
+
+    <script>
+      // Gracefully replace any image that fails to load (e.g. before real assets are added).
+      document.addEventListener(
+        "error",
+        (e) => {
+          const el = e.target as HTMLImageElement;
+          if (
+            el &&
+            el.tagName === "IMG" &&
+            !el.dataset.fallbackApplied &&
+            !el.src.endsWith("/images/placeholder.svg")
+          ) {
+            el.dataset.fallbackApplied = "true";
+            el.src = "/images/placeholder.svg";
+          }
+        },
+        true,
+      );
+    </script>
+  </body>
+</html>

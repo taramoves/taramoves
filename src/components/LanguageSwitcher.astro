@@ -1,0 +1,42 @@
+---
+import { getAlternatePath } from "@/i18n/utils";
+import { useTranslations } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const altPath = getAlternatePath(Astro.url, lang);
+const altLang: Lang = lang === "en" ? "fr" : "en";
+---
+
+<a
+  class="lang-switch"
+  href={altPath}
+  hreflang={altLang}
+  lang={altLang}
+  aria-label={t("lang.label")}
+  >{t("lang.switch")}</a
+>
+
+<style>
+  .lang-switch {
+    font-family: var(--font-label);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.55rem;
+    border: var(--border);
+    background: #ffffff;
+    color: var(--ink);
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .lang-switch:hover {
+    color: #ffffff;
+    background: var(--ink);
+    text-decoration: none;
+  }
+</style>

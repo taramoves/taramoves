@@ -1,0 +1,300 @@
+---
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+
+interface Props {
+  lang: Lang;
+  variant?: "default" | "home";
+}
+const { lang, variant = "default" } = Astro.props;
+const t = useTranslations(lang);
+
+const links = [
+  { href: localizePath(lang, "/art"), label: t("nav.work") },
+  { href: localizePath(lang, "/work-with-me"), label: t("nav.workWithMe") },
+  { href: localizePath(lang, "/about"), label: t("nav.about") },
+  // Shop and Blog are built but hidden from navigation for now.
+  // { href: localizePath(lang, "/shop"), label: t("nav.shop") },
+  // { href: localizePath(lang, "/blog"), label: t("nav.blog") },
+];
+
+// External "other projects" (open in a new tab).
+const otherProjects = [
+  { href: "https://manybirds.ca", label: "Manybirds" },
+  { href: "https://softlaunch.net", label: "Softlaunch" },
+];
+
+const here = Astro.url.pathname.replace(/\/$/, "");
+const isActive = (href: string) => here === href.replace(/\/$/, "");
+const home = localizePath(lang, "/");
+---
+
+<header class:list={["site-header", { "site-header--home": variant === "home" }]}>
+  <div class="container nav-inner">
+    <a class="brand" href={home}>
+      <span class="brand-main">Tara</span>
+      <span class="brand-sub">Moves</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      {
+        links.map((l) => (
+          <a href={l.href} class:list={["nav-link", { active: isActive(l.href) }]}>
+            {l.label}
+          </a>
+        ))
+      }
+      <div class="nav-dropdown">
+        <button type="button" class="nav-link nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+          {t("nav.otherProjects")}
+          <span class="nav-caret" aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-dropdown-menu">
+          {
+            otherProjects.map((p) => (
+              <a href={p.href} class="nav-dropdown-item" target="_blank" rel="noopener">
+                {p.label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <LanguageSwitcher lang={lang} />
+    </nav>
+
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="nav-toggle-label">{t("nav.menu")}</span>
+      <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Primary mobile" hidden>
+    {links.map((l) => <a href={l.href} class="mobile-link">{l.label}</a>)}
+    <p class="mobile-heading">{t("nav.otherProjects")}</p>
+    {otherProjects.map((p) => (
+      <a href={p.href} class="mobile-link mobile-link--sub" target="_blank" rel="noopener">{p.label}</a>
+    ))}
+    <div class="mobile-lang"><LanguageSwitcher lang={lang} /></div>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-elevated);
+    border-bottom: var(--border);
+  }
+  .site-header--home {
+    position: relative;
+    border-bottom: var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 58px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    border: var(--border);
+    padding: 0.35rem 0.65rem;
+    background: #ffffff;
+  }
+  .brand:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .brand-main {
+    font-size: 1rem;
+  }
+  .brand-sub {
+    font-size: 1rem;
+    -webkit-text-stroke: 1.5px var(--ink);
+    color: transparent;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: clamp(0.35rem, 1.5vw, 0.85rem);
+  }
+  .nav-link {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    padding: 0.3rem 0.15rem;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+    text-decoration: none;
+  }
+
+  /* Other-projects dropdown */
+  .nav-dropdown {
+    position: relative;
+  }
+  .nav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font: inherit;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+  }
+  .nav-caret {
+    font-size: 0.6rem;
+    transition: transform 0.12s ease;
+  }
+  .nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 9rem;
+    background: var(--bg-elevated);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.12s ease, transform 0.12s ease, visibility 0.12s;
+    z-index: 20;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu,
+  .nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .nav-dropdown:hover .nav-dropdown-toggle,
+  .nav-dropdown:focus-within .nav-dropdown-toggle {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+  .nav-dropdown:hover .nav-caret,
+  .nav-dropdown:focus-within .nav-caret {
+    transform: rotate(180deg);
+  }
+  .nav-dropdown-item {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-dropdown-item:last-child {
+    border-bottom: none;
+  }
+  .nav-dropdown-item:hover {
+    color: #ffffff;
+    background: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    background: #ffffff;
+    border: var(--border);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0.45rem 0.65rem;
+  }
+  .nav-toggle-bars {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-toggle-bars span {
+    width: 18px;
+    height: 2px;
+    background: var(--ink);
+    display: block;
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem var(--pad-x) 1.25rem;
+    gap: 0;
+    border-top: var(--border);
+    background: var(--bg-elevated);
+  }
+  .mobile-link {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    padding: 0.75rem 0;
+    border-bottom: var(--border);
+  }
+  .mobile-link--sub {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    color: var(--ink-soft);
+  }
+  .mobile-heading {
+    font-family: var(--font-label);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin: 1rem 0 0.25rem;
+  }
+  .mobile-lang {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 860px) {
+    .nav-links {
+      display: none;
+    }
+    .nav-toggle {
+      display: inline-flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector(".nav-toggle");
+  const menu = document.getElementById("mobile-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      menu.hidden = open;
+    });
+  }
+</script>

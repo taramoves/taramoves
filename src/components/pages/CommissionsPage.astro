@@ -1,0 +1,125 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { commissions } from "@/data/commissions";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const items = commissions[lang];
+
+const desc =
+  lang === "fr"
+    ? "Travaux de commande de Tara Rose Morris : projection, production d'événements, motion design et conception web pour clients et collaborateurs."
+    : "Commissioned work by Tara Rose Morris: projection, event production, motion graphics, and web design for clients and collaborators.";
+---
+
+<BaseLayout title={t("commissions.title")} description={desc} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("commissions.title")}</p>
+      <h1>{t("commissions.title")}</h1>
+      <p class="lead">{t("commissions.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    <div class="commissions">
+      {
+        items.map((c) => (
+          <article class="commission">
+            <div class="commission-media">
+              {c.image ? (
+                <img src={c.image} alt={c.imageAlt ?? c.title} loading="lazy" />
+              ) : (
+                <span class="commission-placeholder">{c.title}</span>
+              )}
+            </div>
+            <div class="commission-body">
+              {c.category && <span class="tag">{c.category}</span>}
+              <h2 class="commission-title">{c.title}</h2>
+              <p class="commission-meta muted">
+                {[c.client, c.year].filter(Boolean).join(" · ")}
+              </p>
+              <p>{c.description}</p>
+              {c.link && (
+                <a class="commission-link" href={c.link} target="_blank" rel="noopener">
+                  {c.linkLabel || (lang === "fr" ? "Voir" : "View")} →
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .commissions {
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+  }
+  .commission {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr;
+    border: var(--border);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+  }
+  .commission-media {
+    aspect-ratio: 16 / 10;
+    background: var(--sky);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: var(--border);
+  }
+  .commission-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .commission-placeholder {
+    font-family: var(--font-display);
+    color: var(--ink-soft);
+    padding: 1rem;
+    text-align: center;
+  }
+  .commission-body {
+    padding: 1.25rem clamp(1rem, 2vw, 1.5rem);
+  }
+  .commission-title {
+    margin: 0.5rem 0 0.25rem;
+  }
+  .commission-meta {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+  }
+  .commission-link {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--coral);
+  }
+
+  @media (min-width: 760px) {
+    .commission {
+      grid-template-columns: 1.1fr 1fr;
+      align-items: stretch;
+    }
+    .commission-media {
+      border-bottom: none;
+      border-right: var(--border);
+    }
+  }
+</style>

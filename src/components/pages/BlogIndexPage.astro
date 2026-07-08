@@ -1,0 +1,102 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { getPosts, postSlug, formatPostDate } from "@/lib/blog";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const posts = await getPosts(lang);
+
+const desc = lang === "fr" ? t("blog.intro") : t("blog.intro");
+---
+
+<BaseLayout title={t("blog.title")} description={desc} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("blog.title")}</p>
+      <h1>{t("blog.title")}</h1>
+      <p class="lead">{t("blog.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    {
+      posts.length === 0 ? (
+        <p class="muted">{t("blog.empty")}</p>
+      ) : (
+        <ul class="posts">
+          {posts.map((post) => {
+            const href = localizePath(lang, `/blog/${postSlug(post)}`);
+            return (
+              <li class="post-row">
+                <a class="post-link" href={href}>
+                  <span class="post-date">{formatPostDate(post.data.date, lang)}</span>
+                  <span class="post-main">
+                    <span class="post-title">{post.data.title}</span>
+                    {post.data.description && (
+                      <span class="post-desc muted">{post.data.description}</span>
+                    )}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: var(--border);
+  }
+  .post-link {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 1.1rem 0.25rem;
+    border-bottom: var(--border);
+    color: inherit;
+  }
+  .post-link:hover .post-title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .post-date {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    padding-top: 0.2rem;
+  }
+  .post-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .post-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .post-desc {
+    font-size: 0.88rem;
+  }
+  @media (max-width: 560px) {
+    .post-link {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+</style>

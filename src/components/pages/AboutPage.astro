@@ -1,0 +1,266 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { about, profile } from "@/data/about";
+import {
+  education,
+  exhibitions,
+  talks,
+  awards,
+  professional,
+  skills,
+} from "@/data/cv";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const content = about[lang];
+const fc = t("about.forthcoming");
+
+const desc =
+  lang === "fr"
+    ? "Biographie, démarche artistique et CV de Tara Rose Morris — artiste en nouveaux médias, animatrice et conceptrice de projections."
+    : "Bio, artist statement, and CV of Tara Rose Morris — new media artist, animator, and projection designer.";
+---
+
+<BaseLayout title={t("about.title")} description={desc} lang={lang} person>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("about.title")}</p>
+      <h1>{t("about.title")}</h1>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    <div class="about-grid">
+      <div class="about-photo">
+        <img
+          src="/images/about/tara_photo_1.JPG"
+          alt={lang === "fr" ? "Portrait de Tara Rose Morris" : "Portrait of Tara Rose Morris"}
+          loading="lazy"
+          width="700"
+          height="850"
+        />
+      </div>
+
+      <div class="about-text">
+        <section>
+          <h2>{t("about.bioTitle")}</h2>
+          {content.bio.map((p) => <p>{p}</p>)}
+        </section>
+
+        <section>
+          <h2>{t("about.statementTitle")}</h2>
+          {content.statement.map((p) => <p>{p}</p>)}
+        </section>
+      </div>
+    </div>
+
+    <hr />
+
+    <section class="cv">
+      <div class="cv-head">
+        <h2>{t("about.cvTitle")}</h2>
+        <a class="btn btn--ghost" href="/tara-rose-morris-cv.pdf" download>
+          {t("about.downloadCv")}
+        </a>
+      </div>
+
+      <div class="cv-block">
+        <h3>{t("about.education")}</h3>
+        <ul class="cv-list">
+          {
+            education.map((e) => (
+              <li class="cv-item">
+                <span class="cv-year">{e.year}</span>
+                <span class="cv-detail">
+                  <strong>{e.title}</strong>
+                  <span class="muted"> — {e.detail}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="cv-block">
+        <h3>{t("about.talksTitle")}</h3>
+        {
+          talks.map((group) => (
+            <ul class="cv-list">
+              {group.items.map((item) => (
+                <li class="cv-item">
+                  <span class="cv-year">{group.year}</span>
+                  <span class="cv-detail">
+                    <strong>{item.title}</strong>
+                    {item.detail && <span class="muted"> — {item.detail}</span>}
+                    {item.forthcoming && <em class="fc"> ({fc})</em>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+
+      <div class="cv-block">
+        <h3>{t("about.exhibitions")}</h3>
+        {
+          exhibitions.map((group) => (
+            <ul class="cv-list">
+              {group.items.map((item) => (
+                <li class="cv-item">
+                  <span class="cv-year">{group.year}</span>
+                  <span class="cv-detail">
+                    <strong>{item.title}</strong>
+                    {item.detail && <span class="muted"> — {item.detail}</span>}
+                    {item.work && <span class="cv-work"> · {item.work}</span>}
+                    {item.forthcoming && <em class="fc"> ({fc})</em>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+
+      <div class="cv-block">
+        <h3>{t("about.awards")}</h3>
+        {
+          awards.map((group) => (
+            <ul class="cv-list">
+              {group.items.map((item) => (
+                <li class="cv-item">
+                  <span class="cv-year">{group.year}</span>
+                  <span class="cv-detail">
+                    <strong>{item.title}</strong>
+                    {item.detail && <span class="muted"> — {item.detail}</span>}
+                    {item.forthcoming && <em class="fc"> ({fc})</em>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ))
+        }
+      </div>
+
+      <div class="cv-block">
+        <h3>{t("about.professional")}</h3>
+        <ul class="cv-list">
+          {
+            professional.map((p) => (
+              <li class="cv-item">
+                <span class="cv-year">{p.period}</span>
+                <span class="cv-detail">
+                  <strong>{p.role}</strong>
+                  <span class="muted">
+                    {" "}
+                    — {p.org}, {p.location}
+                  </span>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="cv-block">
+        <h3>{t("about.skills")}</h3>
+        <div class="skills">
+          {skills.map((s) => <span class="tag">{s}</span>)}
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .about-grid {
+    display: grid;
+    gap: clamp(1rem, 3vw, 2rem);
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+  .about-photo {
+    border: var(--border);
+    overflow: hidden;
+    background: var(--lavender);
+    max-width: 360px;
+    box-shadow: var(--shadow);
+  }
+  .about-photo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .about-text section + section {
+    margin-top: 2rem;
+  }
+
+  .cv-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .cv-block {
+    margin-top: 2.25rem;
+  }
+  .cv-block h3 {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-family: var(--font-label);
+    color: var(--ink-faint);
+    border-bottom: var(--border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .cv-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .cv-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.45rem 0;
+    align-items: baseline;
+  }
+  .cv-year {
+    flex: 0 0 5.5rem;
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+  .cv-detail {
+    flex: 1;
+  }
+  .cv-work {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .fc {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 820px) {
+    .about-grid {
+      grid-template-columns: 320px 1fr;
+      align-items: start;
+    }
+  }
+</style>

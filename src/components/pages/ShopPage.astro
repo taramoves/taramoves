@@ -1,0 +1,183 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { shop } from "@/data/shop";
+import { profile } from "@/data/about";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const products = shop[lang];
+const contactHref = localizePath(lang, "/contact");
+
+const desc =
+  lang === "fr"
+    ? "Boutique de Tara Rose Morris : tirages en édition limitée et pièces originales uniques."
+    : "Shop by Tara Rose Morris: limited-edition prints and original one-of-a-kind art pieces.";
+---
+
+<BaseLayout title={t("shop.title")} description={desc} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("shop.title")}</p>
+      <h1>{t("shop.title")}</h1>
+      <p class="lead">{t("shop.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    <div class="grid">
+      {
+        products.map((p) => (
+          <article class="product">
+            <div class="product-media">
+              {p.image ? (
+                <img src={p.image} alt={p.imageAlt ?? p.title} loading="lazy" />
+              ) : (
+                <span class="product-placeholder">{p.title}</span>
+              )}
+              {p.status === "sold" && <span class="badge">{t("shop.sold")}</span>}
+            </div>
+
+            <div class="product-body">
+              <h2 class="product-title">{p.title}</h2>
+              <p class="product-edition">
+                {p.original ? t("shop.original") : p.edition}
+              </p>
+              {p.details && <p class="product-details muted">{p.details}</p>}
+
+              <div class="product-foot">
+                {p.price && <span class="product-price">{p.price}</span>}
+
+                {p.status === "available" && (
+                  <a
+                    class="btn"
+                    href={p.checkoutUrl || contactHref}
+                    target={p.checkoutUrl ? "_blank" : undefined}
+                    rel={p.checkoutUrl ? "noopener" : undefined}
+                  >
+                    {t("shop.buy")}
+                  </a>
+                )}
+                {p.status === "inquire" && (
+                  <a
+                    class="btn btn--ghost"
+                    href={`mailto:${profile.email}?subject=${encodeURIComponent(p.title)}`}
+                  >
+                    {t("shop.inquire")}
+                  </a>
+                )}
+                {p.status === "sold" && (
+                  <span class="btn btn--ghost is-disabled">{t("shop.sold")}</span>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="shop-note muted">
+      {t("shop.note")} <a href={contactHref}>{t("shop.contactLink")}</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .grid {
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .product {
+    display: flex;
+    flex-direction: column;
+    border: var(--border);
+    background: var(--bg-elevated);
+  }
+  .product-media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: var(--mint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: var(--border);
+  }
+  .product-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .product-placeholder {
+    font-family: var(--font-display);
+    color: var(--ink-soft);
+    padding: 1rem;
+    text-align: center;
+  }
+  .badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-family: var(--font-label);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.55rem;
+    border: var(--border);
+    background: var(--yellow);
+    color: var(--ink);
+  }
+  .product-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 1.1rem 1.25rem;
+    flex: 1;
+  }
+  .product-title {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+  .product-edition {
+    margin: 0;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+  .product-details {
+    margin: 0.2rem 0 0;
+    font-size: 0.88rem;
+  }
+  .product-foot {
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .product-price {
+    font-family: var(--font-label);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .is-disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+  .shop-note {
+    margin-top: 2.5rem;
+    font-size: 0.9rem;
+  }
+</style>

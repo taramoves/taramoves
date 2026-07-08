@@ -1,0 +1,336 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { profile } from "@/data/about";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Shop is built but hidden from the home menu for now.
+const menu = [
+  { href: localizePath(lang, "/art"), label: t("nav.work"), tone: "coral" },
+  { href: localizePath(lang, "/work-with-me"), label: t("nav.workWithMe"), tone: "mint" },
+  { href: localizePath(lang, "/about"), label: t("nav.about"), tone: "lavender" },
+];
+
+const tagline =
+  lang === "fr"
+    ? "Installations immersives, performance nouveaux médias, conception de projection, motion design / animation, formation en technologie créative"
+    : "Immersive installations, new media performance, projection design, motion graphics / animation, creative technology education";
+
+// Home collage images — real project images (swap freely). Spaces are URL-encoded.
+const collage = [
+  "/images/projects/tendre/tendre1.png",
+  "/images/projects/birdworld/birdworld1.png",
+  "/images/projects/masks/masks1.png",
+  "/images/projects/entryway/entryway1.png",
+  "/images/projects/undersky/undersky1.png",
+  "/images/projects/flicker-and-gambol/Screenshot 2025-10-22 164617.png",
+  "/images/projects/moves/MOVES Video Projection at Low Resolution, 2025.jpg",
+].map((p) => encodeURI(p));
+
+const img = (i: number) => collage[i];
+
+// kinds: brand (2 wide), portrait (2 tall), link, contact, image, empty.
+type Cell =
+  | { kind: "brand" }
+  | { kind: "portrait" }
+  | { kind: "contact" }
+  | { kind: "link"; href: string; label: string; tone: string }
+  | { kind: "image"; src: string }
+  | { kind: "empty"; tone: string };
+
+const tones = ["coral", "sky", "yellow", "mint", "lavender", "pink", "peach"];
+
+// The "content" cells in display order (everything except the filler squares).
+// The menu links are kept consecutive so they read as one adjacent cluster.
+const content: Cell[] = [
+  { kind: "brand" },
+  { kind: "image", src: img(0) },
+  { kind: "portrait" },
+  { kind: "image", src: img(1) },
+  { kind: "link", ...menu[0] },
+  { kind: "link", ...menu[1] },
+  { kind: "link", ...menu[2] },
+  { kind: "contact" },
+  { kind: "image", src: img(2) },
+  { kind: "image", src: img(3) },
+  { kind: "image", src: img(4) },
+  { kind: "image", src: img(5) },
+  { kind: "image", src: img(6) },
+];
+
+// Grid area used by content: brand & portrait each span 2 cells, everything else 1.
+const contentArea = content.reduce(
+  (sum, c) => sum + (c.kind === "brand" || c.kind === "portrait" ? 2 : 1),
+  0,
+);
+
+// Pad with colored squares so total area is a multiple of 12 (= LCM of the 6 / 4 / 3
+// column layouts). This guarantees the grid fills complete rows with no black gaps,
+// no matter how many images/links there are.
+const minEmpties = 8;
+let target = 12;
+while (target < contentArea + minEmpties) target += 12;
+const emptyCount = target - contentArea;
+
+const empties: Cell[] = Array.from({ length: emptyCount }, (_, i) => ({
+  kind: "empty" as const,
+  tone: tones[i % tones.length],
+}));
+
+// Weave the filler squares through the content for a balanced mosaic — but never
+// between two link cells, so the menu stays as one adjacent cluster.
+const cells: Cell[] = [];
+let ei = 0;
+content.forEach((c, i) => {
+  cells.push(c);
+  const next = content[i + 1];
+  const nearLink = c.kind === "link" || next?.kind === "link";
+  if (i % 2 === 1 && ei < empties.length && !nearLink) cells.push(empties[ei++]);
+});
+while (ei < empties.length) cells.push(empties[ei++]);
+
+const desc =
+  lang === "fr"
+    ? "Tara Rose Morris — artiste en nouveaux médias, animatrice et conceptrice de projections basée à Montréal et Toronto."
+    : "Tara Rose Morris — Montreal & Toronto–based new media artist, animator, and projection designer.";
+---
+
+<BaseLayout title="Tara Rose Morris" description={desc} lang={lang} person bare>
+  <section class="home">
+    <h1 class="visually-hidden">
+      Tara Rose Morris — new media artist, animator, and projection designer
+    </h1>
+
+    <div class="home-grid">
+      {
+        cells.map((cell) => {
+          if (cell.kind === "brand") {
+            return (
+              <div class="cell cell--brand tone-yellow">
+                <span class="brand-line">TARA</span>
+                <span class="brand-line brand-line--accent">MOVES</span>
+                <span class="brand-tagline">{tagline}</span>
+              </div>
+            );
+          }
+          if (cell.kind === "portrait") {
+            return (
+              <div class="cell cell--portrait tone-cream">
+                <img
+                  src="/images/home/tara_photo.PNG"
+                  alt={lang === "fr" ? "Portrait de Tara Rose Morris" : "Portrait of Tara Rose Morris"}
+                  fetchpriority="high"
+                />
+              </div>
+            );
+          }
+          if (cell.kind === "link") {
+            return (
+              <a class={`cell cell--link tone-${cell.tone}`} href={cell.href}>
+                {cell.label}
+              </a>
+            );
+          }
+          if (cell.kind === "contact") {
+            return (
+              <div class="cell cell--contact tone-cream">
+                <a class="home-icon" href={`mailto:${profile.email}`} aria-label={`Email ${profile.email}`} title={profile.email}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="m3 7 9 6 9-6" />
+                  </svg>
+                </a>
+                {profile.instagram && (
+                  <a class="home-icon" href={profile.instagram} target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="3" width="18" height="18" rx="5" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            );
+          }
+          if (cell.kind === "image") {
+            return (
+              <div class="cell cell--image">
+                <img src={cell.src} alt="" loading="lazy" />
+              </div>
+            );
+          }
+          return <div class={`cell cell--empty tone-${cell.tone}`} />;
+        })
+      }
+
+      <div class="home-lang">
+        <LanguageSwitcher lang={lang} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .home {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 2rem) var(--pad-x);
+    min-height: 100dvh;
+  }
+
+  /* Uniform square cells; brand = 2 wide, portrait = 2 tall */
+  .home-grid {
+    --cols: 6;
+    --cell: min(
+      calc((100vw - 2 * var(--pad-x)) / var(--cols)),
+      calc(var(--maxw) / var(--cols))
+    );
+    display: grid;
+    grid-template-columns: repeat(var(--cols), var(--cell));
+    grid-auto-rows: var(--cell);
+    grid-auto-flow: row dense;
+    border: var(--border);
+    background: var(--ink);
+    width: calc(var(--cell) * var(--cols));
+    max-width: 100%;
+    margin-inline: auto;
+    position: relative;
+  }
+
+  .cell {
+    border: var(--border);
+    background: var(--cell-bg, var(--cream));
+    color: var(--cell-ink, var(--ink));
+    overflow: hidden;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .cell--brand {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(0.5rem, 1.5vw, 1rem);
+    gap: 0.05rem;
+  }
+  .brand-line {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.4vw, 2.4rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+  .brand-line--accent {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+  }
+  .brand-tagline {
+    margin-top: 0.4rem;
+    font-family: var(--font-label);
+    font-size: clamp(0.5rem, 0.9vw, 0.62rem);
+    line-height: 1.35;
+    text-transform: lowercase;
+    color: var(--ink-soft);
+  }
+
+  .cell--portrait {
+    grid-row: span 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    background: #ffffff;
+  }
+  .cell--portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    padding: 0.35rem;
+  }
+
+  .cell--link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(0.62rem, 1.5vw, 0.95rem);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    transition: none;
+  }
+  .cell--link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: var(--cell-ink, var(--ink));
+  }
+
+  .cell--image {
+    padding: 0;
+    background: #ffffff;
+  }
+  .cell--image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cell--contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+  .home-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: var(--border);
+    background: #ffffff;
+    color: var(--ink);
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .home-icon:hover {
+    background: var(--ink);
+    color: #ffffff;
+  }
+  .home-icon svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  /* Language switch floats in the corner of the grid */
+  .home-lang {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    z-index: 5;
+  }
+
+  @media (max-width: 900px) {
+    .home-grid {
+      --cols: 4;
+    }
+  }
+  @media (max-width: 520px) {
+    .home-grid {
+      --cols: 3;
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import type { ProjectEntry } from "@/lib/projects";
+import { projectSlug } from "@/lib/projects";
+import { localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+
+interface Props {
+  entry: ProjectEntry;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const slug = projectSlug(entry);
+const href = localizePath(lang, `/art/${slug}`);
+const { title, summary, year, cover, coverAlt, forthcoming } = entry.data;
+---
+
+<a class="card" href={href}>
+  <div class="card-media">
+    {
+      cover ? (
+        <img src={cover} alt={coverAlt ?? title} loading="lazy" width="800" height="600" />
+      ) : (
+        <span class="card-placeholder">{title}</span>
+      )
+    }
+  </div>
+  <div class="card-body">
+    <div class="card-meta-row">
+      <span class="card-meta-label">{lang === "fr" ? "Titre" : "Title"}</span>
+      <h3 class="card-title">{title}</h3>
+    </div>
+    <div class="card-meta-row">
+      <span class="card-meta-label">{lang === "fr" ? "Année" : "Year"}</span>
+      <span class="card-year">{year}</span>
+    </div>
+    {summary && <p class="card-summary muted">{summary}</p>}
+    {forthcoming && <span class="tag">{lang === "fr" ? "À venir" : "Forthcoming"}</span>}
+  </div>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    border: var(--border);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    color: inherit;
+  }
+  .card:hover {
+    color: inherit;
+  }
+  .card-media {
+    aspect-ratio: 4 / 3;
+    background: var(--peach);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: var(--border);
+  }
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card-placeholder {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .card-body {
+    padding: 0.85rem 1rem 1.1rem;
+  }
+  .card-meta-row {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--ink);
+    padding: 0.35rem 0;
+  }
+  .card-meta-row:last-of-type {
+    margin-bottom: 0.5rem;
+  }
+  .card-meta-label {
+    font-family: var(--font-label);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+  .card-title {
+    margin: 0;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+  }
+  .card-year {
+    font-family: var(--font-label);
+    font-size: 0.82rem;
+  }
+  .card-summary {
+    margin: 0.65rem 0 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+</style>

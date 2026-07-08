@@ -1,0 +1,89 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { profile } from "@/data/about";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const socials = profile.social.filter((s) => s.url);
+
+const desc =
+  lang === "fr"
+    ? "Contactez Tara Rose Morris pour des projets, commandes, expositions et conférences."
+    : "Get in touch with Tara Rose Morris for projects, commissions, exhibitions, and talks.";
+---
+
+<BaseLayout title={t("contact.title")} description={desc} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("contact.title")}</p>
+      <h1>{t("contact.title")}</h1>
+      <p class="lead">{t("contact.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    <div class="contact-block">
+      <p class="eyebrow">{t("contact.email")}</p>
+      <a class="contact-email" href={`mailto:${profile.email}`}>{profile.email}</a>
+    </div>
+
+    {
+      socials.length > 0 && (
+        <div class="contact-block">
+          <p class="eyebrow">{t("contact.elsewhere")}</p>
+          <div class="contact-socials">
+            {socials.map((s) => (
+              <a href={s.url} target="_blank" rel="noopener">
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    <p class="contact-cta">
+      <a class="btn" href={localizePath(lang, "/work-with-me")}>{t("nav.workWithMe")} →</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .contact-block {
+    margin-top: 0;
+    padding: 1.25rem;
+    border: var(--border);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+    max-width: 36rem;
+  }
+  .contact-block + .contact-block {
+    margin-top: 1rem;
+  }
+  .contact-email {
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .contact-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--font-label);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .contact-cta {
+    margin-top: 3rem;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import { SITE_URL, SITE_TITLE, DEFAULT_OG_IMAGE, SEO_KEYWORDS } from "@/consts";
+import { getAlternatePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { profile } from "@/data/about";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  image?: string;
+  type?: "website" | "article" | "profile";
+  /** Set true on the About page to emit Person structured data. */
+  person?: boolean;
+}
+
+const {
+  title,
+  description,
+  lang,
+  image = DEFAULT_OG_IMAGE,
+  type = "website",
+  person = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE_URL).href;
+const ogImage = new URL(image, SITE_URL).href;
+const fullTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+
+// hreflang alternates (this page in the other language + x-default).
+const altPath = getAlternatePath(Astro.url, lang);
+const altHref = new URL(altPath, SITE_URL).href;
+const altLang: Lang = lang === "en" ? "fr" : "en";
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  email: `mailto:${profile.email}`,
+  url: SITE_URL,
+  jobTitle: "New media artist, animator, and projection designer",
+  description,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Montreal & Toronto",
+    addressCountry: "CA",
+  },
+  knowsAbout: SEO_KEYWORDS,
+  sameAs: profile.social.filter((s) => s.url).map((s) => s.url),
+};
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={SEO_KEYWORDS.join(", ")} />
+<link rel="canonical" href={canonical} />
+
+<link rel="alternate" hreflang={lang} href={canonical} />
+<link rel="alternate" hreflang={altLang} href={altHref} />
+<link rel="alternate" hreflang="x-default" href={new URL("/", SITE_URL).href} />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={lang === "fr" ? "fr_CA" : "en_CA"} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{person && <script type="application/ld+json" set:html={JSON.stringify(personLd)} />}

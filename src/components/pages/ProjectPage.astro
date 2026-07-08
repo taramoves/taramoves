@@ -1,0 +1,566 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import type { ProjectEntry } from "@/lib/projects";
+
+interface Props {
+  entry: ProjectEntry;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await entry.render();
+const d = entry.data;
+
+const facts = [
+  d.year && { label: t("work.year"), value: d.year },
+  d.medium && { label: t("work.medium"), value: d.medium },
+  d.role && { label: t("work.role"), value: d.role },
+  d.location && { label: t("work.location"), value: d.location },
+].filter(Boolean) as { label: string; value: string }[];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.summary}
+  lang={lang}
+  type="article"
+  image={d.cover}
+>
+  <article class="container section project">
+    <a class="back" href={localizePath(lang, "/art")}>{t("work.backToWork")}</a>
+
+    <header class="project-head">
+      <div class="head-top">
+        <h1>{d.title}</h1>
+        {d.forthcoming && <span class="tag">{lang === "fr" ? "À venir" : "Forthcoming"}</span>}
+      </div>
+      {d.summary && <p class="lead">{d.summary}</p>}
+
+      {
+        facts.length > 0 && (
+          <ul class="facts">
+            {facts.map((m) => (
+              <li>
+                <span class="facts-label">{m.label}</span>
+                <span class="facts-value">{m.value}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      {
+        (d.tags.length > 0 || d.link) && (
+          <div class="head-extra">
+            {d.tags.length > 0 && (
+              <div class="tags">
+                {d.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            )}
+            {d.link && (
+              <a class="btn btn--ghost" href={d.link} target="_blank" rel="noopener">
+                {d.linkLabel ?? (lang === "fr" ? "Voir le lien" : "View link")}
+              </a>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    {
+      d.cover && (
+        <figure class="project-cover">
+          <button class="zoom-btn" type="button" aria-label={lang === "fr" ? "Agrandir l'image" : "Enlarge image"}>
+            <img class="zoomable" src={d.cover} alt={d.coverAlt ?? d.title} width="1600" height="900" />
+          </button>
+        </figure>
+      )
+    }
+
+    <div class="project-body prose">
+      <Content />
+    </div>
+
+    {
+      d.iterations.length > 0 && (
+        <section class="project-block">
+          <h2 class="block-heading">{t("work.iterations")}</h2>
+          <div class="iterations">
+            {d.iterations.map((it) => (
+              <article class="iteration">
+                {it.image && (
+                  <button class="zoom-btn iteration-media" type="button" aria-label={lang === "fr" ? "Agrandir l'image" : "Enlarge image"}>
+                    <img class="zoomable" src={it.image} alt={it.imageAlt ?? it.title} loading="lazy" />
+                  </button>
+                )}
+                <div class="iteration-body">
+                  <h3 class="iteration-title">{it.title}</h3>
+                  {(it.year || it.format || it.location) && (
+                    <p class="iteration-meta muted">
+                      {[it.year, it.format, it.location].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
+                  {it.description && <p class="iteration-desc">{it.description}</p>}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      d.presentations.length > 0 && (
+        <section class="project-block">
+          <h2 class="block-heading">{t("work.presentations")}</h2>
+          <ul class="presentations">
+            {d.presentations.map((p) => (
+              <li class="presentation">
+                {p.date && <span class="presentation-date">{p.date}</span>}
+                <span class="presentation-body">
+                  <span class="presentation-title">{p.title}</span>
+                  {(p.location || p.format) && (
+                    <span class="presentation-meta muted">
+                      {[p.format, p.location].filter(Boolean).join(" · ")}
+                    </span>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      d.credits.length > 0 && (
+        <section class="project-block">
+          <h2 class="block-heading">{t("work.credits")}</h2>
+          <ul class="credits">
+            {d.credits.map((c) => (
+              <li class="credit">
+                <span class="credit-name">{c.name}</span>
+                <span class="credit-role muted">{c.role}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      d.gallery.length > 0 && (
+        <section class="project-block">
+          <div class="gallery">
+            {d.gallery.map((m) =>
+              m.type === "video" ? (
+                <video class="gallery-media" src={m.src} controls playsinline preload="metadata" />
+              ) : m.type === "embed" ? (
+                <div class="gallery-embed">
+                  <iframe
+                    src={m.src}
+                    title={m.alt || d.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  />
+                </div>
+              ) : (
+                <button class="zoom-btn gallery-media" type="button" aria-label={lang === "fr" ? "Agrandir l'image" : "Enlarge image"}>
+                  <img class="zoomable" src={m.src} alt={m.alt} loading="lazy" />
+                </button>
+              ),
+            )}
+          </div>
+        </section>
+      )
+    }
+  </article>
+
+  <div class="lightbox" id="lightbox" hidden aria-hidden="true">
+    <button class="lb-close" type="button" aria-label={lang === "fr" ? "Fermer" : "Close"}>×</button>
+    <button class="lb-nav lb-prev" type="button" aria-label={lang === "fr" ? "Précédent" : "Previous"}>‹</button>
+    <figure class="lb-figure">
+      <img class="lb-img" src="" alt="" />
+      <figcaption class="lb-counter"></figcaption>
+    </figure>
+    <button class="lb-nav lb-next" type="button" aria-label={lang === "fr" ? "Suivant" : "Next"}>›</button>
+  </div>
+</BaseLayout>
+
+<script>
+  const imgs = Array.from(
+    document.querySelectorAll<HTMLImageElement>("img.zoomable"),
+  );
+  const lb = document.getElementById("lightbox");
+  if (lb && imgs.length > 0) {
+    const lbImg = lb.querySelector<HTMLImageElement>(".lb-img")!;
+    const counter = lb.querySelector<HTMLElement>(".lb-counter")!;
+    const btnClose = lb.querySelector<HTMLButtonElement>(".lb-close")!;
+    const btnPrev = lb.querySelector<HTMLButtonElement>(".lb-prev")!;
+    const btnNext = lb.querySelector<HTMLButtonElement>(".lb-next")!;
+    const multiple = imgs.length > 1;
+    let current = 0;
+
+    const render = () => {
+      const img = imgs[current];
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      counter.textContent = multiple ? `${current + 1} / ${imgs.length}` : "";
+      btnPrev.hidden = !multiple;
+      btnNext.hidden = !multiple;
+    };
+    const open = (i: number) => {
+      current = i;
+      render();
+      lb.hidden = false;
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      lb.hidden = true;
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+    const step = (dir: number) => {
+      current = (current + dir + imgs.length) % imgs.length;
+      render();
+    };
+
+    imgs.forEach((img, i) => {
+      const trigger = img.closest("button") ?? img;
+      trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        open(i);
+      });
+    });
+    btnClose.addEventListener("click", close);
+    btnPrev.addEventListener("click", () => step(-1));
+    btnNext.addEventListener("click", () => step(1));
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (lb.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft" && multiple) step(-1);
+      else if (e.key === "ArrowRight" && multiple) step(1);
+    });
+  }
+</script>
+
+<style>
+  .project {
+    max-width: 900px;
+  }
+  .back {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Header */
+  .project-head {
+    margin: 0 0 1.75rem;
+  }
+  .head-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .head-top h1 {
+    margin: 0;
+  }
+  .project-head .lead {
+    margin: 0.75rem 0 0;
+    max-width: 62ch;
+  }
+
+  /* Facts band — clean inline list, no heavy box */
+  .facts {
+    list-style: none;
+    padding: 1rem 0 0;
+    margin: 1.25rem 0 0;
+    border-top: var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2.5rem;
+  }
+  .facts li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .facts-label {
+    font-family: var(--font-label);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+  }
+  .facts-value {
+    font-size: 0.95rem;
+  }
+  .head-extra {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Cover */
+  .project-cover {
+    margin: 0 0 2rem;
+    border: var(--border);
+    overflow: hidden;
+    background: var(--peach);
+    box-shadow: var(--shadow);
+  }
+
+  /* Zoomable image buttons */
+  .zoom-btn {
+    display: block;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: zoom-in;
+    width: 100%;
+  }
+  .zoom-btn img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .project-body {
+    max-width: 68ch;
+  }
+  .prose :global(h2) {
+    margin-top: 1.5rem;
+  }
+
+  /* Presentations / credits */
+  .project-block {
+    margin-top: 2.75rem;
+  }
+  .block-heading {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-label);
+    padding-bottom: 0.5rem;
+    border-bottom: var(--border);
+    margin: 0 0 1rem;
+  }
+  .presentations,
+  .credits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .presentation {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .presentation:last-child,
+  .credit:last-child {
+    border-bottom: none;
+  }
+  .presentation-date {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .presentation-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .presentation-title {
+    font-weight: 600;
+  }
+  .presentation-meta {
+    font-size: 0.82rem;
+  }
+  .credit {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .credit-name {
+    font-weight: 600;
+  }
+  .credit-role {
+    text-align: right;
+    font-size: 0.9rem;
+  }
+  @media (max-width: 520px) {
+    .presentation {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+
+  /* Iterations */
+  .iterations {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .iteration {
+    border: var(--border);
+    background: var(--bg-elevated);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .iteration-media {
+    border-bottom: var(--border);
+    background: var(--peach);
+    aspect-ratio: 4 / 3;
+  }
+  .iteration-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .iteration-body {
+    padding: 1rem;
+  }
+  .iteration-title {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .iteration-meta {
+    margin: 0.3rem 0 0;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .iteration-desc {
+    margin: 0.6rem 0 0;
+    font-size: 0.9rem;
+  }
+
+  /* Gallery */
+  .gallery {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .gallery-media,
+  .gallery-embed {
+    border: var(--border);
+    box-shadow: var(--shadow);
+    width: 100%;
+  }
+  video.gallery-media {
+    height: auto;
+    display: block;
+  }
+  .gallery-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .gallery-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    padding: clamp(1rem, 4vw, 3rem);
+    background: rgba(20, 18, 16, 0.92);
+  }
+  .lightbox[hidden] {
+    display: none;
+  }
+  .lb-figure {
+    margin: 0;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .lb-img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border: var(--border);
+    background: var(--cream);
+  }
+  .lb-counter {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--paper, #f5efe3);
+  }
+  .lb-nav,
+  .lb-close {
+    background: var(--cream);
+    border: var(--border);
+    color: var(--ink);
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-shadow: var(--shadow);
+  }
+  .lb-nav:hover,
+  .lb-close:hover {
+    background: var(--ink);
+    color: #ffffff;
+  }
+  .lb-close {
+    position: absolute;
+    top: clamp(1rem, 3vw, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    font-size: 1.75rem;
+  }
+  .lb-nav[hidden] {
+    display: none;
+  }
+</style>

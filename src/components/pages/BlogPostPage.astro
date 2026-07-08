@@ -1,0 +1,59 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import type { PostEntry } from "@/lib/blog";
+import { formatPostDate } from "@/lib/blog";
+
+interface Props {
+  entry: PostEntry;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await entry.render();
+const d = entry.data;
+---
+
+<BaseLayout title={d.title} description={d.description ?? d.title} lang={lang} type="article">
+  <article class="container section post">
+    <a class="back" href={localizePath(lang, "/blog")}>{t("blog.back")}</a>
+
+    <header class="post-head frame">
+      <p class="post-date">{formatPostDate(d.date, lang)}</p>
+      <h1>{d.title}</h1>
+      {d.description && <p class="lead">{d.description}</p>}
+    </header>
+
+    <div class="post-body prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .back {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+  .post-head {
+    margin: 0 0 1.5rem;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+  }
+  .post-date {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    margin: 0 0 0.5rem;
+  }
+  .post-body {
+    max-width: 68ch;
+  }
+</style>
