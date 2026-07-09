@@ -1,7 +1,7 @@
 ---
 title: "MOVES"
 summary: "Un projet immersif d'installation et de performance fondé sur le world-building."
-year: "2024–2025"
+year: "2018–2025"
 order: 100
 medium: "Installation immersive · projection · animation"
 role: "Artiste, direction, conception de projection"
@@ -27,11 +27,19 @@ iterations:
     imageAlt: "Installation MOVES à la Nuit Blanche Toronto"
     description: "Présentée comme une installation de projection immersive."
   - title: "MOVES — Smart Bomb"
+    year: "2021"
     format: "Film"
     location: "Oakland, CA, US"
-    image: "/images/projects/moves/MOVES%20Video%20Projection%20at%20Low%20Resolution,%202025.jpg"
-    imageAlt: "Image du film MOVES"
-    description: "Une version film de l'univers MOVES."
+    embed: "https://www.youtube.com/embed/VA0S9OnDsi8"
+    imageAlt: "Film MOVES — Smart Bomb, 2021"
+    description: "Une version film de l'univers MOVES, projetée à Smart Bomb."
+  - title: "MOVES — TRANSFER Gallery"
+    year: "2024"
+    format: "Projection"
+    location: "New York, NY, US"
+    embed: "https://www.youtube.com/embed/tDw-PcLn_zo"
+    imageAlt: "Version de MOVES projetée à TRANSFER Gallery, 2024"
+    description: "Une version de MOVES projetée à TRANSFER Gallery."
 ---
 
 <!-- Remplacez ce texte par la vraie description du projet. -->

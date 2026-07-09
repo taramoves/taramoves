@@ -45,6 +45,9 @@ const projects = defineCollection({
           description: z.string().optional(),
           image: z.string().optional(),
           imageAlt: z.string().optional(),
+          // Optional YouTube / Vimeo player URL — when set, the version shows an
+          // inline video player instead of a still image.
+          embed: z.string().optional(),
         }),
       )
       .default([]),

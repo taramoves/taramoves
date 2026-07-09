@@ -92,11 +92,21 @@ const facts = [
           <div class="iterations">
             {d.iterations.map((it) => (
               <article class="iteration">
-                {it.image && (
+                {it.embed ? (
+                  <div class="iteration-media iteration-embed">
+                    <iframe
+                      src={it.embed}
+                      title={it.imageAlt ?? it.title}
+                      loading="lazy"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    />
+                  </div>
+                ) : it.image ? (
                   <button class="zoom-btn iteration-media" type="button" aria-label={lang === "fr" ? "Agrandir l'image" : "Enlarge image"}>
                     <img class="zoomable" src={it.image} alt={it.imageAlt ?? it.title} loading="lazy" />
                   </button>
-                )}
+                ) : null}
                 <div class="iteration-body">
                   <h3 class="iteration-title">{it.title}</h3>
                   {(it.year || it.format || it.location) && (
@@ -446,6 +456,17 @@ const facts = [
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .iteration-embed {
+    position: relative;
+  }
+  .iteration-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
   }
   .iteration-body {
     padding: 1rem;
