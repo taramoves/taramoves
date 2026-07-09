@@ -8,12 +8,21 @@ export function projectSlug(entry: ProjectEntry): string {
   return entry.id.replace(/^(en|fr)\//, "").replace(/\.(md|mdx)$/, "");
 }
 
-/** All projects for a language, newest first, excluding drafts. */
+/** Latest 4-digit year found in a free-text year label (e.g. "2018–2025" -> 2025). */
+function latestYear(year?: string): number {
+  const matches = year?.match(/\d{4}/g);
+  return matches ? Math.max(...matches.map(Number)) : 0;
+}
+
+/** All projects for a language, reverse-chronological (newest first), excluding drafts. */
 export async function getProjects(lang: Lang): Promise<ProjectEntry[]> {
   const all = await getCollection("projects", ({ id, data }) => {
     return id.startsWith(`${lang}/`) && data.draft !== true;
   });
-  return all.sort((a, b) => b.data.order - a.data.order);
+  return all.sort((a, b) => {
+    const yearDiff = latestYear(b.data.year) - latestYear(a.data.year);
+    return yearDiff !== 0 ? yearDiff : b.data.order - a.data.order;
+  });
 }
 
 /** A single project by slug + language. */

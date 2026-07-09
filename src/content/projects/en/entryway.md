@@ -1,7 +1,7 @@
 ---
 title: "Entryway"
 summary: "A work presented at FlashDrive, InterAccess (Toronto)."
-year: "2026"
+year: "2024"
 order: 80
 medium: "Installation · new media"
 role: "Artist"
