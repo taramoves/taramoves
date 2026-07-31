@@ -1,0 +1,16 @@
+---
+import FuturePage from "@/components/pages/FuturePage.astro";
+import { getFutureProjects, futureSlug } from "@/lib/future";
+
+export async function getStaticPaths() {
+  const projects = await getFutureProjects("en");
+  return projects.map((entry) => ({
+    params: { slug: futureSlug(entry) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<FuturePage entry={entry} lang="en" />

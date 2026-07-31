@@ -15,9 +15,20 @@ interface Props {
   person?: boolean;
   /** When true, hides the standard nav + footer (used by the full-bleed home page). */
   bare?: boolean;
+  /** When true, asks search engines not to index this page. */
+  noindex?: boolean;
 }
 
-const { title, description, lang, image, type, person, bare = false } = Astro.props;
+const {
+  title,
+  description,
+  lang,
+  image,
+  type,
+  person,
+  bare = false,
+  noindex = false,
+} = Astro.props;
 const t = useTranslations(lang);
 ---
 
@@ -43,6 +54,7 @@ const t = useTranslations(lang);
       image={image}
       type={type}
       person={person}
+      noindex={noindex}
     />
   </head>
   <body>

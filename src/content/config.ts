@@ -97,4 +97,50 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { projects, blog };
+// Unlisted prospective / future projects (WIP / seeking collaborators).
+// One markdown file per project, per language:
+//   src/content/future/en/<slug>.md
+//   src/content/future/fr/<slug>.md
+// Index at /future, detail at /future/<slug> — not linked from the menu.
+const future = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    // Short tagline / one-liner used on cards and for meta description.
+    summary: z.string(),
+    // Free-text status, e.g. "In development", "Seeking collaborators".
+    status: z.string().optional(),
+    // Higher = listed first on the Future index.
+    order: z.number().default(0),
+    // What kind of collaboration / support you're looking for.
+    lookingFor: z.array(z.string()).default([]),
+    // Named collaborators already on the project.
+    collaborators: z
+      .array(
+        z.object({
+          name: z.string(),
+          role: z.string().optional(),
+        }),
+      )
+      .default([]),
+    // Tech stack labels.
+    tech: z.array(z.string()).default([]),
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
+    // WIP clips / stills — same media types as project galleries.
+    gallery: z
+      .array(
+        z.object({
+          src: z.string(),
+          alt: z.string().default(""),
+          type: z.enum(["image", "video", "embed"]).default("image"),
+        }),
+      )
+      .default([]),
+    // Keep out of search engines by default (these are shareable but unlisted).
+    noindex: z.boolean().default(true),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { projects, blog, future };

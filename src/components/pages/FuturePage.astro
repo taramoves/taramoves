@@ -1,0 +1,267 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import type { FutureEntry } from "@/lib/future";
+import { profile } from "@/data/about";
+
+interface Props {
+  entry: FutureEntry;
+  lang: Lang;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await entry.render();
+const d = entry.data;
+
+const calIntro = `https://cal.com/${profile.calUsername}/${profile.calEvents.intro}`;
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.summary}
+  lang={lang}
+  type="article"
+  image={d.cover}
+  noindex={d.noindex}
+>
+  <article class="container section future">
+    <a class="back" href={localizePath(lang, "/future")}>{t("future.back")}</a>
+    <p class="eyebrow">{t("future.badge")}</p>
+
+    <header class="future-head">
+      <div class="head-top">
+        <h1>{d.title}</h1>
+        {d.status && <span class="tag">{d.status}</span>}
+      </div>
+      {d.summary && <p class="lead">{d.summary}</p>}
+    </header>
+
+    {
+      d.cover && (
+        <figure class="future-cover">
+          <img src={d.cover} alt={d.coverAlt ?? d.title} width="1600" height="900" />
+        </figure>
+      )
+    }
+
+    <div class="future-body prose">
+      <Content />
+    </div>
+
+    {
+      d.lookingFor.length > 0 && (
+        <section class="future-block">
+          <h2 class="block-heading">{t("future.lookingFor")}</h2>
+          <ul class="looking-list">
+            {d.lookingFor.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      d.collaborators.length > 0 && (
+        <section class="future-block">
+          <h2 class="block-heading">{t("future.collaborators")}</h2>
+          <ul class="credits">
+            {d.collaborators.map((c) => (
+              <li class="credit">
+                <span class="credit-name">{c.name}</span>
+                {c.role && <span class="credit-role muted">{c.role}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      d.tech.length > 0 && (
+        <section class="future-block">
+          <h2 class="block-heading">{t("future.tech")}</h2>
+          <div class="tags">
+            {d.tech.map((item) => (
+              <span class="tag">{item}</span>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      d.gallery.length > 0 && (
+        <section class="future-block">
+          <h2 class="block-heading">{t("future.wip")}</h2>
+          <div class="gallery">
+            {d.gallery.map((m) =>
+              m.type === "video" ? (
+                <video class="gallery-media" src={m.src} controls playsinline preload="metadata" />
+              ) : m.type === "embed" ? (
+                <div class="gallery-embed">
+                  <iframe
+                    src={m.src}
+                    title={m.alt || d.title}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  />
+                </div>
+              ) : (
+                <figure class="gallery-media">
+                  <img src={m.src} alt={m.alt} loading="lazy" />
+                </figure>
+              ),
+            )}
+          </div>
+        </section>
+      )
+    }
+
+    <section class="future-block contact" id="contact">
+      <h2 class="block-heading">{t("future.contactTitle")}</h2>
+      <p class="contact-intro">{t("future.contactIntro")}</p>
+      <div class="contact-actions">
+        <a class="btn" href={`mailto:${profile.email}?subject=${encodeURIComponent(d.title)}`}>
+          {t("future.emailCta")}
+        </a>
+        <a class="btn btn--ghost" href={calIntro} target="_blank" rel="noopener">
+          {t("future.bookCta")}
+        </a>
+        {
+          profile.instagram && (
+            <a class="btn btn--ghost" href={profile.instagram} target="_blank" rel="noopener">
+              Instagram
+            </a>
+          )
+        }
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .future {
+    max-width: 820px;
+  }
+  .back {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.25rem;
+  }
+  .future-head {
+    margin-bottom: 1.75rem;
+  }
+  .head-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.75rem 1rem;
+  }
+  .head-top h1 {
+    margin: 0;
+  }
+  .future-cover {
+    margin: 0 0 2rem;
+    border: var(--border);
+    overflow: hidden;
+  }
+  .future-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .future-body {
+    margin-bottom: 2.5rem;
+  }
+  .future-body :global(p) {
+    max-width: 68ch;
+  }
+  .future-block {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: var(--border);
+  }
+  .block-heading {
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 1rem;
+  }
+  .looking-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    max-width: 60ch;
+  }
+  .looking-list li {
+    margin-bottom: 0.4rem;
+  }
+  .credits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .credit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .credit:last-child {
+    border-bottom: none;
+  }
+  .credit-name {
+    font-weight: 600;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .gallery {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .gallery-media {
+    margin: 0;
+    border: var(--border);
+    overflow: hidden;
+    background: #fff;
+  }
+  .gallery-media img,
+  .gallery-media video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .gallery-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border: var(--border);
+    overflow: hidden;
+  }
+  .gallery-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .contact-intro {
+    max-width: 55ch;
+    margin: 0 0 1.25rem;
+  }
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+</style>

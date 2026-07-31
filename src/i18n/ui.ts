@@ -103,6 +103,23 @@ export const ui = {
     "blog.back": "← Back to journal",
     "blog.empty": "No posts yet.",
 
+    "future.title": "Future",
+    "future.intro":
+      "Prospective projects in development — seeking collaborators, presenters, and partners.",
+    "future.badge": "Work in progress",
+    "future.view": "View project →",
+    "future.back": "← Back to future",
+    "future.empty": "No prospective projects listed yet.",
+    "future.lookingFor": "Looking for",
+    "future.collaborators": "Collaborators",
+    "future.tech": "Tech stack",
+    "future.wip": "WIP / process",
+    "future.contactTitle": "Get in touch",
+    "future.contactIntro":
+      "Interested in presenting, hosting, funding, or collaborating on this project? Reach out — I'd love to talk.",
+    "future.emailCta": "Email about this project",
+    "future.bookCta": "Book an intro call",
+
     "footer.tagline": "New media artist · animator · projection designer",
     "footer.rights": "All rights reserved.",
     "footer.contact": "Contact",
@@ -202,6 +219,23 @@ export const ui = {
     "blog.intro": "Notes sur le processus, les travaux en cours et la suite.",
     "blog.back": "← Retour au journal",
     "blog.empty": "Aucun article pour l'instant.",
+
+    "future.title": "Futur",
+    "future.intro":
+      "Projets prospectifs en développement — à la recherche de collaborateur·rices, présentateur·rices et partenaires.",
+    "future.badge": "Travail en cours",
+    "future.view": "Voir le projet →",
+    "future.back": "← Retour au futur",
+    "future.empty": "Aucun projet prospectif pour l'instant.",
+    "future.lookingFor": "Recherche",
+    "future.collaborators": "Collaborateur·rices",
+    "future.tech": "Technologies",
+    "future.wip": "WIP / processus",
+    "future.contactTitle": "Entrer en contact",
+    "future.contactIntro":
+      "Intéressé·e à présenter, accueillir, financer ou collaborer sur ce projet ? Écrivez-moi — j'aimerais en discuter.",
+    "future.emailCta": "Écrire à propos de ce projet",
+    "future.bookCta": "Réserver un appel d'intro",
 
     "footer.tagline":
       "Artiste en nouveaux médias · animatrice · conceptrice de projections",

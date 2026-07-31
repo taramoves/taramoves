@@ -1,0 +1,159 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations, localizePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { getFutureProjects, futureSlug } from "@/lib/future";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const projects = await getFutureProjects(lang);
+---
+
+<BaseLayout
+  title={t("future.title")}
+  description={t("future.intro")}
+  lang={lang}
+  noindex={true}
+>
+  <header class="page-head">
+    <div class="container">
+      <p class="eyebrow">{t("future.badge")}</p>
+      <h1>{t("future.title")}</h1>
+      <p class="lead">{t("future.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    {
+      projects.length === 0 ? (
+        <p class="muted">{t("future.empty")}</p>
+      ) : (
+        <div class="cards">
+          {projects.map((entry) => {
+            const d = entry.data;
+            const href = localizePath(lang, `/future/${futureSlug(entry)}`);
+            return (
+              <a class="card" href={href}>
+                <span class="card-media">
+                  {d.cover ? (
+                    <img src={d.cover} alt={d.coverAlt ?? d.title} loading="lazy" />
+                  ) : (
+                    <span class="card-ph" aria-hidden="true" />
+                  )}
+                </span>
+                <span class="card-body">
+                  <span class="card-top">
+                    <span class="card-title">{d.title}</span>
+                    {d.status && <span class="tag">{d.status}</span>}
+                  </span>
+                  <span class="card-sum">{d.summary}</span>
+                  <span class="card-cta">{t("future.view")}</span>
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .cards {
+    display: grid;
+    gap: 1px;
+    background: #000;
+    border: var(--border);
+  }
+  .card {
+    display: grid;
+    grid-template-columns: minmax(140px, 32%) 1fr;
+    background: #fff;
+    color: inherit;
+    text-decoration: none;
+  }
+  .card:hover {
+    text-decoration: none;
+  }
+  .card:hover .card-title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .card-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-right: var(--border);
+    overflow: hidden;
+    background: #fff;
+  }
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-ph {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      #fff,
+      #fff 8px,
+      #f0f0f0 8px,
+      #f0f0f0 16px
+    );
+  }
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1rem 1.15rem;
+    min-width: 0;
+  }
+  .card-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+  }
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .card-sum {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    max-width: 55ch;
+  }
+  .card-cta {
+    margin-top: auto;
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1.5px solid var(--ink);
+    align-self: flex-start;
+    padding-bottom: 0.1rem;
+  }
+
+  @media (max-width: 560px) {
+    .card {
+      grid-template-columns: 1fr;
+    }
+    .card-media {
+      border-right: none;
+      border-bottom: var(--border);
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>
