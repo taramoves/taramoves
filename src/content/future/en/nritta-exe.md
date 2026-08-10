@@ -18,7 +18,17 @@ tech:
   - "ossia score"
   - "Webcam"
   - "Projector"
-gallery: []
+cover: "/images/future/nritta/nritta%20en%201.jpg"
+coverAlt: "NRITTA.EXE title slide"
+gallery:
+  - src: "/images/future/nritta/nritta%20en%202.jpg"
+    alt: "NRITTA.EXE slide 2"
+  - src: "/images/future/nritta/nritta%20en%203.jpg"
+    alt: "NRITTA.EXE slide 3"
+  - src: "/images/future/nritta/nritta%20en%204.jpg"
+    alt: "NRITTA.EXE slide 4"
+  - src: "/images/future/nritta/nritta%20en%205.jpg"
+    alt: "NRITTA.EXE slide 5"
 ---
 
 What possibilities emerge when ancient practice is placed in conversation with modern computation? What is noticed, and what is missed?

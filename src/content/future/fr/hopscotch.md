@@ -16,7 +16,21 @@ tech:
   - "Lumières de formes et de couleurs"
   - "Écran d'interface"
   - "Dôme et tous ses éléments"
-gallery: []
+cover: "/images/future/hopscotch/hopscotch%20fr%201.jpg"
+coverAlt: "HOPSCOTCH — diapositive titre"
+gallery:
+  - src: "/images/future/hopscotch/hopscotch%20fr%202.jpg"
+    alt: "HOPSCOTCH — diapositive 2"
+  - src: "/images/future/hopscotch/hopscotch%20fr%203.jpg"
+    alt: "HOPSCOTCH — diapositive 3"
+  - src: "/images/future/hopscotch/hopscotch%20fr%204.jpg"
+    alt: "HOPSCOTCH — diapositive 4"
+  - src: "/images/future/hopscotch/hopscotch%20fr%205.jpg"
+    alt: "HOPSCOTCH — diapositive 5"
+  - src: "/images/future/hopscotch/Screenshot%202026-07-24%20091605.png"
+    alt: "HOPSCOTCH — prototype d'interface, disposition des haut-parleurs"
+  - src: "/images/future/hopscotch/Screenshot%202026-07-24%20093426.png"
+    alt: "HOPSCOTCH — test de prévisualisation sous dôme"
 ---
 
 La force du format immersif dépend de la clarté de la relation entre l'audio spatial et l'image immersive.

@@ -72,13 +72,22 @@ const facts = [
     </header>
 
     {
-      d.cover && (
+      d.coverEmbed ? (
+        <figure class="project-cover project-cover--embed">
+          <iframe
+            src={d.coverEmbed}
+            title={d.coverAlt ?? d.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </figure>
+      ) : d.cover ? (
         <figure class="project-cover">
           <button class="zoom-btn" type="button" aria-label={lang === "fr" ? "Agrandir l'image" : "Enlarge image"}>
             <img class="zoomable" src={d.cover} alt={d.coverAlt ?? d.title} width="1600" height="900" />
           </button>
         </figure>
-      )
+      ) : null
     }
 
     <div class="project-body prose">
@@ -341,6 +350,19 @@ const facts = [
     overflow: hidden;
     background: var(--peach);
     box-shadow: var(--shadow);
+  }
+  .project-cover--embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--ink);
+  }
+  .project-cover--embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
   }
 
   /* Zoomable image buttons */

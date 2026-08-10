@@ -87,7 +87,8 @@ const projects = await getFutureProjects(lang);
   }
   .card-media {
     position: relative;
-    aspect-ratio: 4 / 3;
+    /* Square to match the pitch-deck title slides, so nothing gets cropped. */
+    aspect-ratio: 1 / 1;
     border-right: var(--border);
     overflow: hidden;
     background: #fff;
@@ -153,7 +154,6 @@ const projects = await getFutureProjects(lang);
     .card-media {
       border-right: none;
       border-bottom: var(--border);
-      aspect-ratio: 16 / 9;
     }
   }
 </style>

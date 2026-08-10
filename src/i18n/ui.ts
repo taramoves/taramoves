@@ -113,7 +113,7 @@ export const ui = {
     "future.lookingFor": "Looking for",
     "future.collaborators": "Collaborators",
     "future.tech": "Tech stack",
-    "future.wip": "WIP / process",
+    "future.wip": "Overview",
     "future.contactTitle": "Get in touch",
     "future.contactIntro":
       "Interested in presenting, hosting, funding, or collaborating on this project? Reach out — I'd love to talk.",
@@ -230,7 +230,7 @@ export const ui = {
     "future.lookingFor": "Recherche",
     "future.collaborators": "Collaborateur·rices",
     "future.tech": "Technologies",
-    "future.wip": "WIP / processus",
+    "future.wip": "Aperçu",
     "future.contactTitle": "Entrer en contact",
     "future.contactIntro":
       "Intéressé·e à présenter, accueillir, financer ou collaborer sur ce projet ? Écrivez-moi — j'aimerais en discuter.",

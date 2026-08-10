@@ -36,8 +36,8 @@ export const exhibitions: CvYearGroup[] = [
   {
     year: "2026",
     items: [
-      { title: "FullDome Festival Jena, Zeiss Planetarium", detail: "Jena, Germany", work: "Flicker and Gambol", forthcoming: true },
-      { title: "Undersky, Caserne 26", detail: "Montreal, QC, Canada", work: "Undersky", forthcoming: true },
+      { title: "FullDome Festival Jena, Zeiss Planetarium", detail: "Jena, Germany", work: "Flicker and Gambol" },
+      { title: "Undersky, Caserne 26", detail: "Montreal, QC, Canada", work: "Undersky" },
       { title: "FlashDrive, InterAccess", detail: "Toronto, ON, Canada", work: "Entryway" },
       { title: "Montevideo Film Festival", detail: "Montevideo, Uruguay", work: "Flicker and Gambol" },
       { title: "SATFest, Petit SAT", detail: "Montreal, QC, Canada", work: "Flicker and Gambol" },
@@ -109,7 +109,7 @@ export const talks: CvYearGroup[] = [
   {
     year: "2026",
     items: [
-      { title: "Synthetic Worlds, soft_launch, InterAccess", detail: "Toronto, Canada", forthcoming: true },
+      { title: "Synthetic Worlds, soft_launch, InterAccess", detail: "Toronto, Canada" },
       { title: "Reactive Space, soft_launch, InterAccess", detail: "Toronto, Canada" },
       { title: "Internet Canvas, soft_launch, InterAccess", detail: "Toronto, Canada" },
       { title: "Everything Under The Dome, PXR", detail: "VRChat, Online" },
@@ -119,7 +119,7 @@ export const talks: CvYearGroup[] = [
   {
     year: "2025",
     items: [
-      { title: "Performing XR Worlds, Sari-Sari Xchange", detail: "Toronto, Canada", forthcoming: true },
+      { title: "Performing XR Worlds, Sari-Sari Xchange", detail: "Toronto, Canada" },
       { title: "AI & Creativity, Toronto Public Library", detail: "Toronto, Canada" },
       { title: "My Computer and I Watch Each Other, Vector Festival", detail: "Toronto, Canada" },
       { title: "MOVES, DEMO 2025", detail: "New York, NY, USA" },
@@ -149,7 +149,7 @@ export const awards: CvYearGroup[] = [
   {
     year: "2026",
     items: [
-      { title: "Makerspace Residency, Charles Street Video", detail: "Toronto, ON, Canada", forthcoming: true },
+      { title: "Makerspace Residency, Charles Street Video", detail: "Toronto, ON, Canada" },
       { title: "Blue Creator Grant, The Centre for Ocean Literacy Collaboration", detail: "Canada" },
       { title: "Caserne 26 with MAPP", detail: "Montreal, QC, Canada" },
     ],

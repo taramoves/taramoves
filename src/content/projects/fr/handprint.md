@@ -9,6 +9,7 @@ location: "InterAccess, Toronto, ON"
 tags: ["Performance", "Nouveaux médias", "IA"]
 cover: "/images/projects/handprint/Screenshot%202025-07-04%20151149.png"
 coverAlt: "Performance The Handprint and the Hand"
+coverEmbed: "https://www.youtube.com/embed/ztntbmd5ZiQ"
 gallery:
   - src: "/images/projects/handprint/Screenshot%202025-04-09%20142616.png"
     alt: "Image de The Handprint and the Hand"

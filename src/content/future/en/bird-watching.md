@@ -15,7 +15,17 @@ tech:
   - "Python"
   - "Public-domain bird illustrations"
   - "Field recordings + observation data"
-gallery: []
+cover: "/images/future/birdwatching/birdwatching%20en%201.jpg"
+coverAlt: "BIRD WATCHING title slide"
+gallery:
+  - src: "/images/future/birdwatching/birdwatching%20en%202.jpg"
+    alt: "BIRD WATCHING slide 2"
+  - src: "/images/future/birdwatching/birdwatching%20en%203.jpg"
+    alt: "BIRD WATCHING slide 3"
+  - src: "/images/future/birdwatching/birdwatching%20en%204.jpg"
+    alt: "BIRD WATCHING slide 4"
+  - src: "/images/future/birdwatching/birdwatching%20en%205.jpg"
+    alt: "BIRD WATCHING slide 5"
 ---
 
 Nature is all around us. Bird Watching visualizes and sonifies real, site-specific data in order to heighten awareness of our immediate environment — just like watching real birds.

@@ -21,6 +21,10 @@ const projects = defineCollection({
     // Cover image path relative to /public, e.g. "/images/projects/moves/cover.jpg".
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
+    // Optional YouTube / Vimeo player URL. When set, the top of the project page
+    // shows this video instead of the cover image. `cover` is still used for
+    // cards and link previews.
+    coverEmbed: z.string().optional(),
     // Gallery media.
     //   type "image" — image file in /public
     //   type "video" — mp4 file in /public (self-hosted)

@@ -20,6 +20,10 @@ gallery:
     alt: "Masks still"
   - src: "/images/projects/masks/masks6.png"
     alt: "Masks still"
+presentations:
+  - title: "Collective Futures, It's OK Studios"
+    location: "Toronto, ON, CA"
+    format: "DesignTO / Design Week Toronto"
 ---
 
 Six papier-mâché masks exploring identity.

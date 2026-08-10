@@ -15,7 +15,17 @@ tech:
   - "Python"
   - "Illustrations d'oiseaux du domaine public"
   - "Enregistrements de terrain + données d'observation"
-gallery: []
+cover: "/images/future/birdwatching/birdwatching%20fr%201.jpg"
+coverAlt: "BIRD WATCHING — diapositive titre"
+gallery:
+  - src: "/images/future/birdwatching/birdwatching%20fr%202.jpg"
+    alt: "BIRD WATCHING — diapositive 2"
+  - src: "/images/future/birdwatching/birdwatching%20fr%203.jpg"
+    alt: "BIRD WATCHING — diapositive 3"
+  - src: "/images/future/birdwatching/birdwatching%20fr%204.jpg"
+    alt: "BIRD WATCHING — diapositive 4"
+  - src: "/images/future/birdwatching/birdwatching%20fr%205.jpg"
+    alt: "BIRD WATCHING — diapositive 5"
 ---
 
 La nature est partout autour de nous. Bird Watching visualise et sonifie des données réelles et spécifiques au site afin d'accroître notre conscience de notre environnement immédiat — tout comme observer de vrais oiseaux.

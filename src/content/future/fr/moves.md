@@ -11,7 +11,17 @@ tech:
   - "HTML / CSS / JavaScript"
   - "Python"
   - "TouchDesigner"
-gallery: []
+cover: "/images/future/moves/moves%20fr%201.jpg"
+coverAlt: "MOVES — diapositive titre"
+gallery:
+  - src: "/images/future/moves/moves%20fr%202.jpg"
+    alt: "MOVES — diapositive 2"
+  - src: "/images/future/moves/moves%20fr%203.jpg"
+    alt: "MOVES — diapositive 3"
+  - src: "/images/future/moves/moves%20fr%204.jpg"
+    alt: "MOVES — diapositive 4"
+  - src: "/images/future/moves/moves%20fr%205.jpg"
+    alt: "MOVES — diapositive 5"
 ---
 
 Tous les dômes ne sont pas faits pour danser.

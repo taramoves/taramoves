@@ -11,7 +11,17 @@ tech:
   - "HTML / CSS / JavaScript"
   - "Python"
   - "TouchDesigner"
-gallery: []
+cover: "/images/future/moves/moves%20en%201.jpg"
+coverAlt: "MOVES title slide"
+gallery:
+  - src: "/images/future/moves/moves%20en%202.jpg"
+    alt: "MOVES slide 2"
+  - src: "/images/future/moves/moves%20en%203.jpg"
+    alt: "MOVES slide 3"
+  - src: "/images/future/moves/moves%20en%204.jpg"
+    alt: "MOVES slide 4"
+  - src: "/images/future/moves/moves%20en%205.jpg"
+    alt: "MOVES slide 5"
 ---
 
 Not all domes are built for dancing.

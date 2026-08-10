@@ -16,7 +16,21 @@ tech:
   - "Shaped / colored lights"
   - "Interface screen"
   - "Dome + full system"
-gallery: []
+cover: "/images/future/hopscotch/hopscotch%20en%201.jpg"
+coverAlt: "HOPSCOTCH title slide"
+gallery:
+  - src: "/images/future/hopscotch/hopscotch%20en%202.jpg"
+    alt: "HOPSCOTCH slide 2"
+  - src: "/images/future/hopscotch/hopscotch%20en%203.jpg"
+    alt: "HOPSCOTCH slide 3"
+  - src: "/images/future/hopscotch/hopscotch%20en%204.jpg"
+    alt: "HOPSCOTCH slide 4"
+  - src: "/images/future/hopscotch/hopscotch%20en%205.jpg"
+    alt: "HOPSCOTCH slide 5"
+  - src: "/images/future/hopscotch/Screenshot%202026-07-24%20091605.png"
+    alt: "HOPSCOTCH interface prototype — speaker layout"
+  - src: "/images/future/hopscotch/Screenshot%202026-07-24%20093426.png"
+    alt: "HOPSCOTCH dome preview test"
 ---
 
 The power of the immersive format depends on the clarity of the relationship between spatial audio and immersive image.

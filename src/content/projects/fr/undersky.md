@@ -9,7 +9,6 @@ location: "Caserne 26 · Charles Street Video"
 tags: ["Installation immersive", "Projection", "Performance"]
 cover: "/images/projects/undersky/undersky1.png"
 coverAlt: "Installation Undersky"
-forthcoming: true
 gallery:
   - src: "/images/projects/undersky/undersky2.png"
     alt: "Vue de l'installation Undersky"

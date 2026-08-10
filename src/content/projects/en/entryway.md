@@ -1,14 +1,15 @@
 ---
 title: "Entryway"
-summary: "A work presented at FlashDrive, InterAccess (Toronto)."
+summary: "AI-mediated memory and cultural identity, rebuilt from ancestral artifacts and home video."
 year: "2024"
 order: 80
 medium: "Installation · new media"
 role: "Artist"
 location: "InterAccess, Toronto, ON"
-tags: ["Installation", "New media"]
+tags: ["Installation", "New media", "AI"]
 cover: "/images/projects/entryway/entryway1.png"
 coverAlt: "Entryway"
+coverEmbed: "https://www.youtube.com/embed/FNwwnUC5LdU"
 gallery:
   - src: "/images/projects/entryway/entryway2.png"
     alt: "Entryway still"
@@ -16,9 +17,10 @@ gallery:
     alt: "Entryway still"
   - src: "/images/projects/entryway/entryway4.png"
     alt: "Entryway still"
+presentations:
+  - date: "2024"
+    title: "FlashDrive, InterAccess"
+    location: "Toronto, ON, CA"
 ---
 
-<!-- Replace this with the real project description. -->
-Entryway was presented at FlashDrive, InterAccess in Toronto.
-
-Add a description of the piece here.
+Entryway explores how artificial intelligence mediates our experiences of memory and cultural identity. It reconstructs familial spaces and archives through AI-generated ancestral artifacts and processed home videos, creating environments between memory and imagination.

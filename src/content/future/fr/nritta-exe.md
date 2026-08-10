@@ -18,7 +18,17 @@ tech:
   - "ossia score"
   - "Webcam"
   - "Projecteur"
-gallery: []
+cover: "/images/future/nritta/nritta%20fr%201.jpg"
+coverAlt: "NRITTA.EXE — diapositive titre"
+gallery:
+  - src: "/images/future/nritta/nritta%20fr%202.jpg"
+    alt: "NRITTA.EXE — diapositive 2"
+  - src: "/images/future/nritta/nritta%20fr%203.jpg"
+    alt: "NRITTA.EXE — diapositive 3"
+  - src: "/images/future/nritta/nritta%20fr%204.jpg"
+    alt: "NRITTA.EXE — diapositive 4"
+  - src: "/images/future/nritta/nritta%20fr%205.jpg"
+    alt: "NRITTA.EXE — diapositive 5"
 ---
 
 Quelles possibilités émergent lorsque les pratiques anciennes sont mises en conversation avec l'informatique moderne ? Qu'est-ce qui est remarqué et qu'est-ce qui est manqué ?
