@@ -34,8 +34,11 @@ export default defineConfig({
           fr: "fr",
         },
       },
-      // Future pages are shareable but unlisted — keep them out of the sitemap.
-      filter: (page) => !page.includes("/future/") && !page.endsWith("/future"),
+      // Future and talk pages are shareable but unlisted — keep them out of the sitemap.
+      filter: (page) =>
+        !page.includes("/future/") &&
+        !page.endsWith("/future") &&
+        !page.includes("/dometalk"),
     }),
   ],
 });

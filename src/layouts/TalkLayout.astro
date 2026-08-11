@@ -1,0 +1,122 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getAlternatePath } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+
+// Layout for standalone talk transcripts (unlisted pages shared by link / QR code).
+// The same talk exists at /<slug> in English and /fr/<slug> in French; the buttons
+// at the top switch between them.
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    lang: Lang;
+    eyebrow?: string;
+    intro?: string;
+  };
+}
+
+const { frontmatter: fm } = Astro.props;
+const lang = fm.lang;
+const altPath = getAlternatePath(Astro.url, lang);
+const here = Astro.url.pathname;
+
+const options = [
+  { code: "en", label: "English", href: lang === "en" ? here : altPath },
+  { code: "fr", label: "Français", href: lang === "fr" ? here : altPath },
+];
+---
+
+<BaseLayout
+  title={fm.title}
+  description={fm.description}
+  lang={lang}
+  type="article"
+  noindex={true}
+>
+  <header class="page-head">
+    <div class="container">
+      {fm.eyebrow && <p class="eyebrow">{fm.eyebrow}</p>}
+      <h1>{fm.title}</h1>
+      {fm.intro && <p class="lead">{fm.intro}</p>}
+
+      <nav class="lang-choice" aria-label={lang === "fr" ? "Langue" : "Language"}>
+        {
+          options.map((o) => (
+            <a
+              class:list={["lang-btn", { "is-active": o.code === lang }]}
+              href={o.href}
+              hreflang={o.code}
+              lang={o.code}
+              aria-current={o.code === lang ? "true" : undefined}
+            >
+              {o.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+  </header>
+
+  <div class="container talk">
+    <div class="talk-body">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .lang-choice {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .lang-btn {
+    flex: 1 1 0;
+    max-width: 12rem;
+    /* Comfortable touch target on phones. */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.5rem 0.9rem;
+    border: var(--border);
+    background: #ffffff;
+    color: var(--ink);
+  }
+  .lang-btn:hover {
+    background: var(--ink);
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .lang-btn.is-active {
+    background: var(--ink);
+    color: #ffffff;
+  }
+
+  .talk {
+    padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .talk-body {
+    max-width: 60ch;
+    /* Slightly larger and airier than the site default — this is a long read. */
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .talk-body :global(p) {
+    margin: 0 0 1.15rem;
+    max-width: none;
+  }
+  .talk-body :global(hr) {
+    border: none;
+    border-top: var(--border);
+    margin: 2rem 0;
+  }
+  .talk-body :global(em) {
+    font-style: italic;
+  }
+</style>
