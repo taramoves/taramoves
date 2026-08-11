@@ -35,21 +35,19 @@ And yet with each of these projects I felt frustrated with the limits of the med
 
 Returning to Canada two years ago, I started to find my voice in planar immersive animation at InterAccess in Toronto where I first started experimenting with some of the visuals in the film.
 
-And then I entered the dome and my mind exploded. I fell in love with the dome as a digital medium of collective enclosure. It remains tactile and embodied while enveloping us collectively in a shared experience of imagined worlds.
+And then I entered the dome and I fell in love with it as a digital but collective medium. It remains tactile and embodied while enveloping us together in a shared experience of imagined worlds.
 
 After MUTEK, I started exploring domemaster with every medium I'd been using. Marie, who I had met a year earlier in LA right before she would start her residency here, gave me my first dome advice — domeport allows you to simulate the dome, and also never use true black or you can see projection outlines — so I set about making things.
 
-Those were some things I made early on. Then, adapting the same approach and visual language I'd been using, I made Flicker and Gambol.
- 
-This is an overview of the core of my process from motion capture to grooms and clothing to rendering clips to processing through image to image model to assembling with sound.
+These were some things I made early on in Unreal, P5, and Midjourney, some of which I ended up using as backgrounds in the film. Then, adapting the same approach and visual language I'd been using for VJing and for MOVES, I made Flicker and Gambol.
 
-I begin with 3D animation.
+This is an overview of the core of my process from motion capture to grooms and clothing to rendering clips to processing through image to image model to assembling with sound. But it begins with 3D animation.
 
 For human movement I used motion capture, either of myself or pulled from mocap libraries applied to a metahuman. I added hair and a very rough clothing simulation so my characters would be dressed and have a more organic feel.
 
 For the tiger and rabbit, I used 3D assets from existing libraries. And for the backgrounds I used some of my previously generated videos you saw before.
 
-The masks were 3D models created from references to real life papier mâché masks. For non human elements I did simple keyframe animation.
+The masks were 3D models created from references to real life papier mâché masks that I'd made. For non human elements I did simple keyframe animation.
 
 I rendered individual clips for each element (a person, animal, mask, tree), so I could play around with them collage style later, an approach I learned to love while VJing.
 
@@ -57,11 +55,11 @@ I took these clips as image sequences and then ran them through an image to imag
 
 I love playing with the inbetweens and cycles of digital and organic. It's what drew me to this approach in the first place because I could use AI as a sort of blurred collective consciousness to introduce an unpredictable organic element into otherwise quite prescriptive 3D animation.
 
-I built scenes from all these clips in a circular format using 2D animation, creating relationships between characters, entrances and exits, and overall building a story from many parts.
+I built scenes from all these clips in a circular format using 2D animation in After Effects, creating relationships between characters, entrances and exits, and overall building an abstract narrative from many parts.
 
 Listening to Heal My Love by my friend and collaborator Graham Steinman, the pacing and narrative of the film clicked into place. We mixed for spatial audio at Oboro.
 
-I've had the privilege of having this film presented in Melbourne, Montevideo, Jena, and at Petit SAT this past spring. I'm delighted to share it with you now, and then we'll circle back. Thank you to the Ontario Arts Council for its support. Here is Flicker and Gambol.
+I've now had the privilege of having this film presented in Melbourne, Montevideo, Jena, and at Petit SAT this past spring. Thank you to the Ontario Arts Council for their support. I'm delighted to share it with you now, and then we'll circle back. Here is Flicker and Gambol.
 
 Thanks for watching. I'm proud to share that last month it won the Janus Award for innovation at the Fulldome Festival Jena.
 

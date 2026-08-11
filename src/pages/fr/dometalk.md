@@ -35,21 +35,19 @@ Et pourtant, à chacun de ces projets, je me sentais frustrée par les limites d
 
 De retour au Canada il y a deux ans, j'ai commencé à trouver ma voix dans l'animation immersive planaire à InterAccess, à Toronto, où j'ai commencé à expérimenter certains des visuels du film.
 
-Et puis je suis entrée dans le dôme et ma tête a explosé. Je suis tombée amoureuse du dôme comme médium numérique d'enveloppement collectif. Il reste tactile et incarné tout en nous enveloppant collectivement dans une expérience partagée de mondes imaginés.
+Et puis je suis entrée dans le dôme et j'en suis tombée amoureuse : un médium numérique, mais collectif. Il reste tactile et incarné tout en nous enveloppant ensemble dans une expérience partagée de mondes imaginés.
 
 Après MUTEK, j'ai commencé à explorer le format domemaster avec tous les médiums que j'utilisais déjà. Marie, que j'avais rencontrée un an plus tôt à Los Angeles, juste avant qu'elle ne commence sa résidence ici, m'a donné mes premiers conseils pour le dôme — domeport permet de simuler le dôme, et surtout ne jamais utiliser de noir pur, sinon on voit les contours de projection. Je me suis donc mise à fabriquer des choses.
 
-Voilà quelques-unes des choses que j'ai faites au début. Puis, en adaptant la même approche et le même langage visuel, j'ai réalisé Flicker and Gambol.
- 
-Voici un aperçu de l'essentiel de mon processus : de la capture de mouvement aux coiffures et aux vêtements, du rendu des clips au traitement par un modèle image-à-image, jusqu'à l'assemblage avec le son.
+Voici quelques-unes des choses que j'ai faites au début, dans Unreal, P5 et Midjourney — certaines ont fini par servir d'arrière-plans dans le film. Puis, en adaptant la même approche et le même langage visuel que j'utilisais pour le VJing et pour MOVES, j'ai réalisé Flicker and Gambol.
 
-Je commence par l'animation 3D.
+Voici un aperçu de l'essentiel de mon processus : de la capture de mouvement aux coiffures et aux vêtements, du rendu des clips au traitement par un modèle image-à-image, jusqu'à l'assemblage avec le son. Mais tout commence par l'animation 3D.
 
 Pour le mouvement humain, j'ai utilisé la capture de mouvement — la mienne ou celle de bibliothèques de mocap — appliquée à un metahuman. J'ai ajouté des cheveux et une simulation de vêtements très sommaire pour que mes personnages soient habillés et aient un rendu plus organique.
 
 Pour le tigre et le lapin, j'ai utilisé des modèles 3D provenant de bibliothèques existantes. Et pour les arrière-plans, j'ai utilisé certaines des vidéos générées que vous avez vues plus tôt.
 
-Les masques étaient des modèles 3D créés à partir de références à de vrais masques en papier mâché. Pour les éléments non humains, j'ai fait de l'animation par images clés toute simple.
+Les masques étaient des modèles 3D créés à partir de références à de vrais masques en papier mâché que j'avais fabriqués. Pour les éléments non humains, j'ai fait de l'animation par images clés toute simple.
 
 J'ai rendu des clips individuels pour chaque élément (une personne, un animal, un masque, un arbre), afin de pouvoir les manipuler plus tard façon collage — une approche que j'ai appris à aimer en faisant du VJing.
 
@@ -57,11 +55,11 @@ J'ai repris ces clips sous forme de séquences d'images, puis je les ai passés 
 
 J'adore jouer avec les entre-deux et les cycles du numérique et de l'organique. C'est ce qui m'a attirée vers cette approche au départ : je pouvais me servir de l'IA comme d'une sorte de conscience collective floue pour introduire un élément organique imprévisible dans une animation 3D autrement très prescriptive.
 
-J'ai construit des scènes à partir de tous ces clips, en format circulaire, avec de l'animation 2D : en créant des relations entre les personnages, des entrées et des sorties, et en bâtissant une histoire à partir de nombreuses pièces.
+J'ai construit des scènes à partir de tous ces clips, en format circulaire, avec de l'animation 2D dans After Effects : en créant des relations entre les personnages, des entrées et des sorties, et en bâtissant un récit abstrait à partir de nombreuses pièces.
 
 En écoutant Heal My Love de mon ami et collaborateur Graham Steinman, le rythme et le récit du film se sont mis en place. Nous avons fait le mixage en audio spatial à Oboro.
 
-J'ai eu le privilège de voir ce film présenté à Melbourne, à Montevideo, à Jena et au Petit SAT ce printemps. Je suis ravie de le partager avec vous maintenant, puis nous reviendrons boucler la boucle. Merci au Conseil des arts de l'Ontario pour son soutien. Voici Flicker and Gambol.
+J'ai maintenant eu le privilège de voir ce film présenté à Melbourne, à Montevideo, à Jena et au Petit SAT ce printemps. Merci au Conseil des arts de l'Ontario pour son soutien. Je suis ravie de le partager avec vous maintenant, puis nous reviendrons boucler la boucle. Voici Flicker and Gambol.
 
 Merci d'avoir regardé. Je suis fière de vous annoncer que le mois dernier, le film a remporté le prix Janus pour l'innovation au Fulldome Festival Jena.
 
