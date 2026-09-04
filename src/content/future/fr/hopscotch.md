@@ -16,6 +16,7 @@ tech:
   - "Lumières de formes et de couleurs"
   - "Écran d'interface"
   - "Dôme et tous ses éléments"
+prototypeUrl: "/prototypes/av-loopers.html"
 cover: "/images/future/hopscotch/hopscotch%20fr%201.jpg"
 coverAlt: "HOPSCOTCH — diapositive titre"
 gallery:

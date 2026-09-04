@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { useTranslations } from "@/i18n/utils";
+import type { Lang } from "@/i18n/ui";
+import { talkVideos } from "@/data/talk-videos";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<BaseLayout title={t("talks.title")} description={t("talks.intro")} lang={lang}>
+  <header class="page-head">
+    <div class="container">
+      <h1>{t("talks.title")}</h1>
+      <p class="lead">{t("talks.intro")}</p>
+    </div>
+  </header>
+
+  <div class="container section page-body">
+    <ul class="talks">
+      {
+        talkVideos.map((talk) => (
+          <li class="talk">
+            <h2 class="talk-event">{talk.event}</h2>
+            <p class="talk-date">{talk.date}</p>
+            <p class="talk-desc">{talk.description[lang]}</p>
+            <div class="talk-video">
+              <iframe
+                src={talk.embedUrl}
+                title={`${talk.event} — ${talk.description[lang]}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              />
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-body {
+    padding-top: 0;
+  }
+  .talks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+    max-width: 60rem;
+  }
+  .talk-event {
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0;
+  }
+  .talk-date {
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin: 0.4rem 0 0;
+  }
+  .talk-desc {
+    font-size: 0.95rem;
+    margin: 0.5rem 0 1rem;
+    max-width: 60ch;
+  }
+  .talk-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border: var(--border);
+    background: var(--ink);
+    box-shadow: var(--shadow);
+  }
+  .talk-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>

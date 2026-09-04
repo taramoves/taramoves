@@ -17,6 +17,7 @@ export const ui = {
     "nav.commissions": "Work",
     "nav.workWithMe": "Collaborate",
     "nav.shop": "Shop",
+    "nav.talks": "Talks",
     "nav.about": "About",
     "nav.blog": "Blog",
     "nav.contact": "Contact",
@@ -98,6 +99,9 @@ export const ui = {
     "contact.email": "Email",
     "contact.elsewhere": "Elsewhere",
 
+    "talks.title": "Talks",
+    "talks.intro": "Recorded artist talks and panels.",
+
     "blog.title": "Journal",
     "blog.intro": "Notes on process, works-in-progress, and what's coming next.",
     "blog.back": "← Back to journal",
@@ -113,6 +117,7 @@ export const ui = {
     "future.lookingFor": "Looking for",
     "future.collaborators": "Collaborators",
     "future.tech": "Tech stack",
+    "future.prototypes": "Open prototypes →",
     "future.wip": "Overview",
     "future.contactTitle": "Get in touch",
     "future.contactIntro":
@@ -134,6 +139,7 @@ export const ui = {
     "nav.commissions": "Travaux",
     "nav.workWithMe": "Collaborer",
     "nav.shop": "Boutique",
+    "nav.talks": "Conférences",
     "nav.about": "À propos",
     "nav.blog": "Blogue",
     "nav.contact": "Contact",
@@ -215,6 +221,9 @@ export const ui = {
     "contact.email": "Courriel",
     "contact.elsewhere": "Ailleurs",
 
+    "talks.title": "Conférences",
+    "talks.intro": "Causeries d'artiste et panels enregistrés.",
+
     "blog.title": "Journal",
     "blog.intro": "Notes sur le processus, les travaux en cours et la suite.",
     "blog.back": "← Retour au journal",
@@ -230,6 +239,7 @@ export const ui = {
     "future.lookingFor": "Recherche",
     "future.collaborators": "Collaborateur·rices",
     "future.tech": "Technologies",
+    "future.prototypes": "Ouvrir les prototypes →",
     "future.wip": "Aperçu",
     "future.contactTitle": "Entrer en contact",
     "future.contactIntro":

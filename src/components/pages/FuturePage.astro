@@ -50,6 +50,16 @@ const calIntro = `https://cal.com/${profile.calUsername}/${profile.calEvents.int
     </div>
 
     {
+      d.prototypeUrl && (
+        <p class="prototype-link">
+          <a href={d.prototypeUrl} target="_blank" rel="noopener">
+            {t("future.prototypes")}
+          </a>
+        </p>
+      )
+    }
+
+    {
       d.lookingFor.length > 0 && (
         <section class="future-block">
           <h2 class="block-heading">{t("future.lookingFor")}</h2>
@@ -225,6 +235,25 @@ const calIntro = `https://cal.com/${profile.calUsername}/${profile.calEvents.int
     flex-wrap: wrap;
     gap: 0.45rem;
   }
+
+  /* Prototype link, sits directly under the project description. */
+  .prototype-link {
+    margin: 0 0 clamp(1.75rem, 4vw, 2.5rem);
+  }
+  .prototype-link a {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 0.1rem;
+  }
+  .prototype-link a:hover {
+    text-decoration: none;
+    opacity: 0.65;
+  }
+
   .gallery {
     display: grid;
     gap: 1rem;

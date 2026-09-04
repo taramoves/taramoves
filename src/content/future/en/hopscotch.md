@@ -16,6 +16,7 @@ tech:
   - "Shaped / colored lights"
   - "Interface screen"
   - "Dome + full system"
+prototypeUrl: "/prototypes/av-loopers.html"
 cover: "/images/future/hopscotch/hopscotch%20en%201.jpg"
 coverAlt: "HOPSCOTCH title slide"
 gallery:

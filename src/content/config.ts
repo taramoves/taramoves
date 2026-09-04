@@ -129,6 +129,9 @@ const future = defineCollection({
       .default([]),
     // Tech stack labels.
     tech: z.array(z.string()).default([]),
+    // Playable prototype. Can be an internal path (e.g. a self-contained
+    // sketch in /public) or an external URL.
+    prototypeUrl: z.string().optional(),
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
     // WIP clips / stills — same media types as project galleries.
