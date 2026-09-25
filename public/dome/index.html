@@ -4,279 +4,74 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>Dome — index · Tara Rose Morris</title>
-<meta name="description" content="Index of the dome pages held on this site: the reading notes, the ESCARGOT technology outline, the fulldome festival database, the dome work analysis framework, and the dome work itself.">
+<title>Dome — Tara Rose Morris</title>
 <style>
-:root{--ink:#000;--paper:#fff;--hair:#d4d4d4;--fill:#f2f2f2;--mid:#5c5c5c;--faint:#9a9a9a}
+:root{--ink:#000;--paper:#fff;--hair:#d4d4d4;--mid:#5c5c5c}
 *{border-radius:0!important;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--paper);color:var(--ink);
-  font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px 96px}
-header.site .wrap,nav.pages .wrap{padding-bottom:0}
-a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink)}
-a:hover{background:var(--ink);color:var(--paper);border-bottom-color:var(--ink)}
-header.site{border-bottom:1px solid var(--ink);padding:16px 0 10px}
-header.site .bar{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline}
-header.site h1{font-size:15px;letter-spacing:.10em;text-transform:uppercase;margin:0}
-header.site .stamp{margin-left:auto;color:var(--mid);font-size:11px;letter-spacing:.06em;
-  text-transform:uppercase}
-nav.pages{border-bottom:1px solid var(--ink)}
-nav.pages .wrap{display:flex;flex-wrap:wrap;padding-bottom:0}
-nav.pages a,nav.pages span{padding:7px 13px;border:0;border-right:1px solid var(--hair);font-size:11px;
-  letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
-nav.pages span.off{color:var(--faint)}
-h1.title{font-size:22px;letter-spacing:.02em;margin:26px 0 4px}
-p.sub{margin:0 0 20px;color:var(--mid);max-width:78ch}
-.meta{display:flex;flex-wrap:wrap;border:1px solid var(--ink);margin:18px 0 26px}
-.meta div{border-right:1px solid var(--hair);padding:6px 12px;min-width:126px}
-.meta div:last-child{border-right:0}
-.meta b{display:block;font-size:10px;letter-spacing:.10em;text-transform:uppercase;
-  color:var(--mid);font-weight:400}
-.meta span{font-size:12px}
-h2{font-size:14px;letter-spacing:.09em;text-transform:uppercase;margin:34px 0 10px;
-  padding-bottom:5px;border-bottom:1px solid var(--ink)}
-h3{font-size:13px;letter-spacing:.01em;margin:26px 0 6px;border-top:1px solid var(--ink);
-  padding-top:10px}
-h3 .ref{font-size:10.5px;letter-spacing:.10em;color:var(--mid);margin-right:8px}
-h3 .tag{float:right;font-size:10px;letter-spacing:.10em;text-transform:uppercase;
-  color:var(--mid);font-weight:400}
-p,li{margin:0 0 9px;max-width:96ch}
-ul{padding-left:20px}
-dl.fields{margin:10px 0 0;border-top:1px solid var(--hair)}
-dl.fields>div{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--hair)}
-dl.fields dt{width:190px;flex:0 0 190px;padding:5px 10px 5px 0;font-size:10px;letter-spacing:.10em;
-  text-transform:uppercase;color:var(--mid)}
-dl.fields dd{margin:0;flex:1 1 320px;padding:5px 0;font-size:12px;min-width:0}
-.tw{overflow-x:auto;margin:14px 0}
-table{border-collapse:collapse;font-size:12px;width:100%}
-th,td{border:1px solid var(--hair);padding:5px 9px;text-align:left;vertical-align:top}
-th{background:var(--fill);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
-  font-weight:700;white-space:nowrap}
-tbody tr:hover{background:var(--fill)}
-td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-td.ref{white-space:nowrap;color:var(--mid)}
-.st{padding:5px 9px;text-align:left;vertical-align:top}
-.st-live,.st-local{white-space:nowrap;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
-.st-live:before{content:"■ ";font-size:8px}
-.st-local:before{content:"□ ";font-size:8px}
-.st-local{color:var(--mid)}
-.faint{color:var(--mid)}
-.note{border:1px solid var(--hair);background:var(--fill);padding:10px 13px;margin:16px 0;
-  color:#111;font-size:12px}
-footer.site{border-top:1px solid var(--ink);margin-top:44px;padding-top:12px;color:var(--mid);
-  font-size:11px;display:flex;flex-wrap:wrap;gap:16px}
-@media(max-width:700px){
-  dl.fields dt{width:auto;flex:1 1 100%;padding-bottom:0}
-  dl.fields dd{flex:1 1 100%;padding-top:0;padding-bottom:8px}
-  h3 .tag{float:none;display:block;margin-top:3px}
-}
-@media print{
-  nav.pages,footer.site{display:none}
-  body{font-size:10.5px}
-  a{border-bottom:0}
-  tbody tr:hover{background:none}
-}
+  font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace}
+.wrap{max-width:820px;margin:0 auto;padding:0 22px 70px}
+header{padding:15px 0 11px;border-bottom:1px solid var(--ink);color:var(--mid);
+  font-size:11px;letter-spacing:.10em;text-transform:uppercase;display:flex;flex-wrap:wrap;gap:16px}
+header b{color:var(--ink);font-weight:400}
+.menu{margin:28px 0 0}
+.item{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 18px;
+  padding:15px 3px 13px;border-bottom:1px solid var(--hair);
+  text-decoration:none;color:var(--ink)}
+.item .nm{font-size:15px;letter-spacing:.16em;text-transform:uppercase}
+.item .det{margin-left:auto;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--mid);opacity:0;transition:opacity .1s}
+a.item:hover .nm,a.item:focus-visible .nm{background:var(--ink);color:var(--paper)}
+a.item:hover .det,a.item:focus-visible .det{opacity:1}
+.item.off{color:var(--mid);cursor:default}
+.item.off:hover .det{opacity:1}
+footer{padding-top:13px;color:var(--mid);font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;display:flex;flex-wrap:wrap;gap:18px}
+@media print{.det{opacity:1}}
+@media (hover:none){.det{opacity:1}}
 </style>
 </head>
 <body>
 
-<header class="site"><div class="wrap"><div class="bar">
-<h1>Dome — index</h1>
-<div class="stamp">unlisted · built 25 September 2026</div>
-</div></div></header>
-
-<nav class="pages"><div class="wrap">
-<a href="/dome/index.html" class="on">Index</a>
-<a href="/dome/lit/">Reading notes</a>
-<a href="/dome/escargot/">ESCARGOT</a>
-<a href="/dome/domedb/">Festival database</a>
-<span class="off">Dome work analysis</span>
-<span class="off">Dome work</span>
-</div></nav>
-
 <div class="wrap">
 
-<h1 class="title">Dome — index</h1>
-<p class="sub">Every dome page held on this site, in one place: the reading notes towards the
-literature review, the technology outline for ESCARGOT, the fulldome festival database, the
-framework used to analyse dome work, and the work itself. Three of the five are published here;
-two are still on disk.</p>
+<header><b>Dome</b><span>Tara Rose Morris</span></header>
 
-<div class="meta">
-<div><b>entries</b><span>5</span></div>
-<div><b>published</b><span>3</span></div>
-<div><b>held locally</b><span>2</span></div>
-<div><b>built</b><span>25 September 2026</span></div>
-<div><b>status</b><span>unlisted working pages</span></div>
+<div class="menu">
+
+<a class="item" href="/dome/lit/">
+<span class="nm">Reading notes</span>
+<span class="det">literature review · 45 sources</span>
+</a>
+
+<a class="item" href="/dome/escargot/">
+<span class="nm">Escargot</span>
+<span class="det">technology outline · draft, Sep 2026</span>
+</a>
+
+<a class="item" href="/dome/domedb/">
+<span class="nm">Festival database</span>
+<span class="det">7 festivals · 1,662 screenings · 2010–2026</span>
+</a>
+
+<span class="item off">
+<span class="nm">Dome work analysis</span>
+<span class="det">not published</span>
+</span>
+
+<span class="item off">
+<span class="nm">Dome work</span>
+<span class="det">not started</span>
+</span>
+
 </div>
 
-<h2>The index</h2>
-<div class="tw">
-<table>
-<thead><tr>
-<th>ref</th><th>page</th><th>what it is</th><th>held</th><th>status</th>
-</tr></thead>
-<tbody>
-<tr>
-<td class="ref">D-01</td>
-<td><a href="/dome/lit/">Reading notes</a></td>
-<td>Working notes towards a literature review on practice-based research in fulldome performance — the theatrical → lecture axis, the examples of the form, the threads, and the arguments the corpus has not settled.</td>
-<td class="num">987 KB<br><span class="faint">8 files</span></td>
-<td class="st"><span class="st-live">live</span><br><span class="faint">unlisted</span></td>
-</tr>
-<tr>
-<td class="ref">D-02</td>
-<td><a href="/dome/escargot/">ESCARGOT</a></td>
-<td>Technology outline for a dome project in which a seated audience takes part through a web app on its own phones: what the phone knows, what it can do, what the facilitator drives, and what the hub does.</td>
-<td class="num">423 KB<br><span class="faint">1 file</span></td>
-<td class="st"><span class="st-live">live</span><br><span class="faint">working draft</span></td>
-</tr>
-<tr>
-<td class="ref">D-03</td>
-<td><a href="/dome/domedb/">Fulldome festival database</a></td>
-<td>Screening, credit and award records for seven fulldome festivals, transcribed from printed programmes and catalogues, with every row carrying its source and an evidence quote.</td>
-<td class="num">3.7 MB<br><span class="faint">1 file</span></td>
-<td class="st"><span class="st-live">live</span><br><span class="faint">unlisted</span></td>
-</tr>
-<tr>
-<td class="ref">D-04</td>
-<td>Dome work analysis<br><span class="faint">dome eval model</span></td>
-<td>Framework and record sheet for evaluating one dome work at a time — AURA as the spine, a dome-native field set, and computed dome figures. Includes the single-file tool.</td>
-<td class="num">94 KB tool<br><span class="faint">+ 2 papers</span></td>
-<td class="st"><span class="st-local">on disk</span><br><span class="faint">not published</span></td>
-</tr>
-<tr>
-<td class="ref">D-05</td>
-<td>Dome work<br><span class="faint">the work itself</span></td>
-<td>The authored dome work the other four entries serve. Not built yet.</td>
-<td class="num faint">—</td>
-<td class="st"><span class="st-local">not started</span><br><span class="faint">not published</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<div class="note"><b>Where to start.</b> <a href="/dome/escargot/">ESCARGOT</a> is what is being
-built; <a href="/dome/domedb/">the festival database</a> is what the field has actually screened;
-<a href="/dome/lit/">the reading notes</a> are what has been written about it. The
-<a href="#d-04">analysis framework</a> is the record taken of a single work once one exists to
-read.</div>
-
-<h2>Notes on each</h2>
-
-<h3 id="d-01"><span class="ref">D-01</span>Reading notes — the literature review
-<span class="tag">live · unlisted · noindex</span></h3>
-<p>Kept as pages rather than one document, because the map, the examples and the bibliography are
-read differently. Built from a 45-source corpus held locally as PDFs.</p>
-<dl class="fields">
-<div><dt>pages</dt><dd><a href="/dome/lit/examples.html">Examples</a> (3,361 words) ·
-<a href="/dome/lit/threads.html">Threads</a> (3,068) ·
-<a href="/dome/lit/bibliography.html">Bibliography</a> (93,180) ·
-<a href="/dome/lit/sources-wanted.html">Sources wanted</a> (3,683) ·
-<a href="/dome/lit/leads.html">Leads</a> (1,168) ·
-<a href="/dome/lit/map/">Map</a> (27,432)</dd></div>
-<div><dt>corpus</dt><dd>45 sources, held locally; 325+ quoted passages</dd></div>
-<div><dt>provenance</dt><dd>Every quotation is machine-checked against the extracted source text
-and the page it is attributed to before it is written down. Where a scan is damaged the entry says
-so instead of guessing. Where a work is not held, the claim states its provenance and nothing is
-quoted from it.</dd></div>
-<div><dt>map</dt><dd>The wiki behind the notes as a graph, a source table, a matrix and indexes,
-with coverage filters — which sources touch which ideas, and where the gaps are.</dd></div>
-<div><dt>leads</dt><dd>Works the review needs and the corpus does not hold: what the corpus already
-says about them and what would change if they arrived. Schawinsky's <i>Spectodrama</i> first.</dd></div>
-</dl>
-
-<h3 id="d-02"><span class="ref">D-02</span>ESCARGOT — technology outline
-<span class="tag">live · working draft, September 2026</span></h3>
-<p>The project has a technological part and a narrative part. This document covers only the
-technology. The phone runs a web app; a hub — a server at the venue — receives everything the
-phones send, decides what it means, logs it, and drives the dome's visuals and spatial audio.</p>
-<dl class="fields">
-<div><dt>sections</dt><dd>1 Overview · 2 Calibrate · 3 Interactions · 4 Facilitator · 5 Hub ·
-6 Plan</dd></div>
-<div><dt>question it answers</dt><dd>What a phone knows on its own, the camera picture that gives
-it heading and seat, and how a calibrated phone puts a cursor on the dome; the objects, the five
-things a phone can do, and what the dome makes of each; how a scene is defined and a show is
-sequenced; messages, output and logging; then work packages in build order with deliverables and
-open questions.</dd></div>
-<div><dt>form</dt><dd>One page, 423 KB, with the mathematics set in LaTeX. No build step.</dd></div>
-</dl>
-
-<h3 id="d-03"><span class="ref">D-03</span>Fulldome festival database
-<span class="tag">live · unlisted</span></h3>
-<p>Screening, credit and award records assembled from printed programmes and catalogues, one row
-per screening, reconciled across festivals so a film that travelled is one film rather than six
-programme entries.</p>
-<dl class="fields">
-<div><dt>festivals</dt><dd>7 — Best of Earth, Dome Fest West, Dome Under, Fulldome Festival Brno,
-Fulldome Festival Jena, Fulldome UK, SAT Fest</dd></div>
-<div><dt>scale</dt><dd>53 editions, 2010–2026 · 1,662 screenings · 1,202 films · 1,756 artists ·
-102 countries of origin</dd></div>
-<div><dt>awards</dt><dd>329 screenings carry an award status (winner, nominee, honourable mention,
-finalist, commendation, special mention); 260 films hold at least one</dd></div>
-<div><dt>descriptions</dt><dd>913 rows carry a synopsis, with a confidence line — high or
-medium — and its source</dd></div>
-<div><dt>provenance</dt><dd>All 1,662 rows carry their source file, the page or poster, and an
-evidence quote. A 47-value flag vocabulary records what the source did not print and how the row
-was obtained — <i>country not printed</i> (626 rows), <i>director not printed</i> (354),
-<i>transcribed from programme poster image</i> (74) — so a gap is visible rather than
-silent.</dd></div>
-<div><dt>use</dt><dd>Search and filters across every field; five views — Screens, Films, Artists,
-Editions, Awards; CSV export; shareable filtered links.</dd></div>
-</dl>
-
-<h3 id="d-04"><span class="ref">D-04</span>Dome work analysis — the eval model
-<span class="tag">on disk · not published</span></h3>
-<p>One record per authored work made for a domed projection space — film, performance, lecture,
-interactive or generative work, hybrids. Framework v2. <b>AURA</b> (Katrina Lat, 2025) is the
-evaluation spine, used as published; everything added here is marked. A v1 audit cut the record
-from 107 fields to 70, of which 48 are the working CORE view.</p>
-<dl class="fields">
-<div><dt>design rules</dt><dd>Describe first, evaluate later — no value language before §5. No
-aggregate score, and marks are never summed or totalled anywhere in the interface or the exports.
-Dome-native vocabulary throughout: dome master, equidistant azimuthal fisheye,
-concentric/unidirectional seating, 15.1, the springline. Unknown stays unknown, kept distinct from
-not applicable.</dd></div>
-<div><dt>held as</dt><dd><code>FRAMEWORK.md</code> — the specification, v2 (18.6 KB) ·
-<code>RUBRIC.md</code> — the record sheet, generated from the tool so paper cannot drift from app ·
-<code>dome-work-analysis.html</code> — the tool, one offline file (94 KB) ·
-<code>blank-form.pdf</code> — the empty rubric, 10 pages ·
-<code>example-analysis-record.pdf</code> — a filled record, 11 pages</dd></div>
-<div><dt>tool</dt><dd>Three views: an Index of every work as a sortable row; an Analysis view
-carrying the dome profile, the provenance chain, a chapter timeline, a dome occupancy map with the
-seat line, an unrolled dome surface, the computed profile and the pillar marks; and a Blank form.
-Records persist in the browser's local storage, with JSON export and import, and each work exports
-as markdown.</dd></div>
-<div><dt>computed</dt><dd>Spatial footprint, seat-band coverage, zenith time and dome occupancy,
-derived from the chapters rather than typed in.</dd></div>
-<div><dt>status</dt><dd>Not published. No URL yet — this entry is a placeholder until it is put
-up.</dd></div>
-</dl>
-
-<h3 id="d-05"><span class="ref">D-05</span>Dome work
-<span class="tag">not started · not published</span></h3>
-<p>The authored work itself, which the four entries above exist to inform and to record. Nothing is
-indexed here yet, by intent — this row is held open so the set stays visible as a set, and so that
-its absence is a stated gap rather than a missing page.</p>
-
-<h2>Elsewhere on this site</h2>
-<p>These are not part of the working set above — they are the public pages, listed in the site
-itself.</p>
-<dl class="fields">
-<div><dt><a href="/dometalk">Dome Talk</a></dt><dd>A talk about <i>Flicker and Gambol</i>, my
-first fulldome film: how I got here, how it was made, and what's next.</dd></div>
-<div><dt><a href="/future/domebook">Domebook</a></dt><dd>A future project, held in the site's
-Future section.</dd></div>
-</dl>
-
-<footer class="site">
-<span>Tara Rose Morris — dome index</span>
-<span>built 25 September 2026</span>
-<span>unlisted: by URL, not in the menu or sitemap</span>
-<span><a href="mailto:taramoves@gmail.com">taramoves@gmail.com</a></span>
+<footer>
+<span>unlisted</span>
+<a href="mailto:taramoves@gmail.com" style="color:inherit">taramoves@gmail.com</a>
 </footer>
-
 </div>
+
 </body>
 </html>
